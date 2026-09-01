@@ -23,14 +23,14 @@ const uart_config_t uart_config = {
     .trace_uart = 0,         /* 日志串口号 */
     .uport_uart = 1,         /* 协议串口号 */
     .trace_baud = 115200,    /* 日志串口波特率 */
-    .uport_baud = 115200     /* 协议串口波特率：与 PetCargo STC UART2 保持一致 */
+    .uport_baud = 9600       /* 协议串口波特率 */
 };
 
 /* 通用配置：版本、日志、持久化与麦克风增益 */
 const general_item_t general_config = {
-    .version = "V-2026.08.31_08.",          /* 配置版本字符串 */
+    .version = "V-2026.09.01_23.",          /* 配置版本字符串 */
     .log_level = 1,            /* 日志等级 */
-    .persisted_volume = 1,   /* 音量是否持久化 */
+    .persisted_volume = 0,   /* 音量是否持久化 */
     .persisted_voice = 1,     /* 语音开关是否持久化 */
     .persisted_wakeup = 1,   /* 唤醒词是否持久化 */
     .reply_switch = REPLY_SWITCH_ON,        /* 回复开关，JSON: 1 */
@@ -71,15 +71,37 @@ const command_item_t command_items[] = {
         .play_audio = {TONE_ID_1}   /* 对应 JSON play_id */
     },
     {
-        .keyword_size = 7,                    /* 关键词长度 */
+        .keyword_size = 13,                    /* 关键词长度 */
         .send_pro_len = 4,              /* 发送协议字节数 */
         .recv_pro_len = 0,              /* 接收协议字节数 */
         .audio_size = 1,                /* 播报音频数量 */
         .play_type = 0,                  /* 播报方式 */
-        .keywords = "hou tui",                   /* 对应 JSON keywords */
-        .send_pro_buf = {0xA5, 0x5A, 0x02, 0xFD}, /* 对应 JSON pro_buffer */
+        .keywords = "zhuan ge quan",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x06, 0xF9}, /* 对应 JSON pro_buffer */
         .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
         .play_audio = {TONE_ID_2}   /* 对应 JSON play_id */
+    },
+    {
+        .keyword_size = 9,                    /* 关键词长度 */
+        .send_pro_len = 4,              /* 发送协议字节数 */
+        .recv_pro_len = 0,              /* 接收协议字节数 */
+        .audio_size = 1,                /* 播报音频数量 */
+        .play_type = 0,                  /* 播报方式 */
+        .keywords = "shui jiao",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x07, 0xF8}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+        .play_audio = {TONE_ID_3}   /* 对应 JSON play_id */
+    },
+    {
+        .keyword_size = 14,                    /* 关键词长度 */
+        .send_pro_len = 4,              /* 发送协议字节数 */
+        .recv_pro_len = 0,              /* 接收协议字节数 */
+        .audio_size = 1,                /* 播报音频数量 */
+        .play_type = 0,                  /* 播报方式 */
+        .keywords = "xiang qian zou",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x02, 0xFD}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+        .play_audio = {TONE_ID_4}   /* 对应 JSON play_id */
     },
     {
         .keyword_size = 13,                    /* 关键词长度 */
@@ -87,43 +109,87 @@ const command_item_t command_items[] = {
         .recv_pro_len = 0,              /* 接收协议字节数 */
         .audio_size = 1,                /* 播报音频数量 */
         .play_type = 0,                  /* 播报方式 */
-        .keywords = "zhuan ge quan",                   /* 对应 JSON keywords */
+        .keywords = "xiang hou zou",                   /* 对应 JSON keywords */
         .send_pro_buf = {0xA5, 0x5A, 0x03, 0xFC}, /* 对应 JSON pro_buffer */
         .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
-        .play_audio = {TONE_ID_3}   /* 对应 JSON play_id */
+        .play_audio = {TONE_ID_5}   /* 对应 JSON play_id */
+    },
+    {
+        .keyword_size = 13,                    /* 关键词长度 */
+        .send_pro_len = 4,              /* 发送协议字节数 */
+        .recv_pro_len = 0,              /* 接收协议字节数 */
+        .audio_size = 1,                /* 播报音频数量 */
+        .play_type = 0,                  /* 播报方式 */
+        .keywords = "xiang zuo zou",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x04, 0xFB}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+        .play_audio = {TONE_ID_6}   /* 对应 JSON play_id */
+    },
+    {
+        .keyword_size = 13,                    /* 关键词长度 */
+        .send_pro_len = 4,              /* 发送协议字节数 */
+        .recv_pro_len = 0,              /* 接收协议字节数 */
+        .audio_size = 1,                /* 播报音频数量 */
+        .play_type = 0,                  /* 播报方式 */
+        .keywords = "xiang you zou",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x05, 0xFA}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+        .play_audio = {TONE_ID_7}   /* 对应 JSON play_id */
     },
     {
         .keyword_size = 9,                    /* 关键词长度 */
         .send_pro_len = 4,              /* 发送协议字节数 */
         .recv_pro_len = 0,              /* 接收协议字节数 */
-        .audio_size = 0,                /* SDK 导出包缺少 004 睡眠提示音，禁止误播后续音频 */
+        .audio_size = 1,                /* 播报音频数量 */
         .play_type = 0,                  /* 播报方式 */
-        .keywords = "shui jiao",                   /* 对应 JSON keywords */
-        .send_pro_buf = {0xA5, 0x5A, 0x04, 0xFB}, /* 对应 JSON pro_buffer */
+        .keywords = "qi chuang",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x08, 0xF7}, /* 对应 JSON pro_buffer */
         .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
-        .play_audio = {}   /* 保留 UART 指令；补入 004 音频后再恢复播报 */
+        .play_audio = {TONE_ID_8}   /* 对应 JSON play_id */
     },
     {
-        .keyword_size = 15,                    /* 关键词长度 */
+        .keyword_size = 11,                    /* 关键词长度 */
         .send_pro_len = 4,              /* 发送协议字节数 */
         .recv_pro_len = 0,              /* 接收协议字节数 */
         .audio_size = 1,                /* 播报音频数量 */
         .play_type = 0,                  /* 播报方式 */
-        .keywords = "kai shi yun shu",                   /* 对应 JSON keywords */
-        .send_pro_buf = {0xA5, 0x5A, 0x05, 0xFA}, /* 对应 JSON pro_buffer */
+        .keywords = "mai ge meng",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x09, 0xF6}, /* 对应 JSON pro_buffer */
         .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
-        .play_audio = {TONE_ID_4}   /* 实际音频包 ID 4 对应 005 运输台词 */
+        .play_audio = {TONE_ID_9}   /* 对应 JSON play_id */
     },
     {
-        .keyword_size = 15,                    /* 关键词长度 */
+        .keyword_size = 13,                    /* 关键词长度 */
         .send_pro_len = 4,              /* 发送协议字节数 */
         .recv_pro_len = 0,              /* 接收协议字节数 */
         .audio_size = 1,                /* 播报音频数量 */
         .play_type = 0,                  /* 播报方式 */
-        .keywords = "chong wu mo shi",                   /* 对应 JSON keywords */
-        .send_pro_buf = {0xA5, 0x5A, 0x06, 0xF9}, /* 对应 JSON pro_buffer */
+        .keywords = "chang shou ge",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x0A, 0xF5}, /* 对应 JSON pro_buffer */
         .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
-        .play_audio = {TONE_ID_5}   /* 实际音频包 ID 5 对应 006 宠物模式台词 */
+        .play_audio = {TONE_ID_10}   /* 对应 JSON play_id */
+    },
+    {
+        .keyword_size = 13,                    /* 关键词长度 */
+        .send_pro_len = 4,              /* 发送协议字节数 */
+        .recv_pro_len = 0,              /* 接收协议字节数 */
+        .audio_size = 1,                /* 播报音频数量 */
+        .play_type = 0,                  /* 播报方式 */
+        .keywords = "ni kai xin ma",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x0B, 0xF4}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+        .play_audio = {TONE_ID_11}   /* 对应 JSON play_id */
+    },
+    {
+        .keyword_size = 18,                    /* 关键词长度 */
+        .send_pro_len = 4,              /* 发送协议字节数 */
+        .recv_pro_len = 0,              /* 接收协议字节数 */
+        .audio_size = 1,                /* 播报音频数量 */
+        .play_type = 0,                  /* 播报方式 */
+        .keywords = "bao gao zhuang tai",                   /* 对应 JSON keywords */
+        .send_pro_buf = {0xA5, 0x5A, 0x0C, 0xF3}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+        .play_audio = {TONE_ID_12}   /* 对应 JSON play_id */
     },
     {
         .keyword_size = 0,                    /* 关键词长度 */
@@ -134,7 +200,7 @@ const command_item_t command_items[] = {
         .keywords = "",                   /* 对应 JSON keywords */
         .send_pro_buf = {}, /* 对应 JSON pro_buffer */
         .recv_pro_buf = {0x5A, 0xA5, 0x80, 0x7F}, /* 对应 JSON recv_pro_buffer */
-        .play_audio = {TONE_ID_6}   /* 实际音频包 ID 6 对应 007 强光台词 */
+        .play_audio = {TONE_ID_16}   /* 对应 JSON play_id */
     },
 };
 
@@ -143,17 +209,53 @@ const volume_item_t volume = {
     .level = {10, 37, 58, 79, 100},            /* 音量等级表 */
     .level_size = 5,                    /* 音量等级数量 */
     .default_vol = 4,             /* 默认音量等级 */
-    .adjmax_play_audio = {},  /* SDK 导出包未包含最大音量提示音 */
-    .adjmax_play_audio_size = 0,            /* 最大音量提示音数量 */
-    .adjmin_play_audio = {},  /* SDK 导出包未包含最小音量提示音 */
-    .adjmin_play_audio_size = 0,            /* 最小音量提示音数量 */
+    .adjmax_play_audio = {TONE_ID_17},  /* 最大音量提示音 */
+    .adjmax_play_audio_size = 1,            /* 最大音量提示音数量 */
+    .adjmin_play_audio = {TONE_ID_18},  /* 最小音量提示音 */
+    .adjmin_play_audio_size = 1,            /* 最小音量提示音数量 */
     .vol_cmd_items = {
+        {
+            .keyword_size = 13,                  /* 关键词长度 */
+            .send_pro_len = 0,            /* 发送协议字节数 */
+            .recv_pro_len = 0,            /* 接收协议字节数 */
+            .audio_size = 1,              /* 播报音频数量 */
+            .ctrl_type = CTRL_TURN_UP_VOLUME,          /* 控制类型，JSON: 3 */
+            .play_type = 0,                /* 播报方式 */
+            .keywords = "da dian sheng",                 /* 对应 JSON keywords */
+            .send_pro_buf = {}, /* 对应 JSON pro_buffer */
+            .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+            .play_audio = {TONE_ID_14} /* 对应 JSON play_id */
+        },
+        {
+            .keyword_size = 15,                  /* 关键词长度 */
+            .send_pro_len = 0,            /* 发送协议字节数 */
+            .recv_pro_len = 0,            /* 接收协议字节数 */
+            .audio_size = 1,              /* 播报音频数量 */
+            .ctrl_type = CTRL_TURN_DOWN_VOLUME,          /* 控制类型，JSON: 4 */
+            .play_type = 0,                /* 播报方式 */
+            .keywords = "xiao dian sheng",                 /* 对应 JSON keywords */
+            .send_pro_buf = {}, /* 对应 JSON pro_buffer */
+            .recv_pro_buf = {}, /* 对应 JSON recv_pro_buffer */
+            .play_audio = {TONE_ID_15} /* 对应 JSON play_id */
+        },
     },
-    .vol_cmd_item_size = 0                 /* 音量控制命令数量 */
+    .vol_cmd_item_size = 2                 /* 音量控制命令数量 */
 };
 
-/* 退出识别模式配置数组（空）：JSON 未配置 quit_asr */
-const quit_asr_item_t quit_asr_items[] = {};
+/* 退出识别模式配置数组：识别态下的退出命令 */
+const quit_asr_item_t quit_asr_items[] = {
+    {
+        .keyword_size = 15,                  /* 关键词长度 */
+        .audio_size = 1,              /* 播报音频数量 */
+        .send_pro_len = 0,            /* 发送协议字节数 */
+        .recv_pro_len = 0,            /* 接收协议字节数 */
+        .play_type = 0,                /* 播报方式 */
+        .keywords = "tui chu shi bie",                 /* 对应 JSON keywords */
+        .play_audio = {TONE_ID_13}, /* 对应 JSON play_id */
+        .send_pro_buf = {}, /* 对应 JSON pro_buffer */
+        .recv_pro_buf = {} /* 对应 JSON recv_pro_buffer */
+    },
+};
 
 /* 恢复出厂设置配置数组（空）：JSON 未配置 reset */
 const reset_item_t reset_items[] = {};

@@ -70,11 +70,10 @@ firmware/stc_remote/build/*
 *.cdb
 *.omf
 
-# ListenAI/Mars SDK reproducible intermediates. The packaged firmware in
-# mars-sdk/dist remains versionable.
+# ListenAI/Mars SDK build output. The platform-exported algorithm resources in
+# tools/respack/algo are required inputs and must remain versionable.
 mars-sdk/build/
 mars-sdk/tools/respack/algo/docs/*.log
-mars-sdk/tools/respack/algo/*.bin
 mars-sdk/tools/respack/*.bin
 
 # Generated inspection exports and temporary working data

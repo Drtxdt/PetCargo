@@ -22,7 +22,7 @@ def main():
     stream = None
     if args.port:
         import serial
-        stream = serial.Serial(args.port, 115200, timeout=0.05)
+        stream = serial.Serial(args.port, 9600, timeout=0.05)
 
     start = time.monotonic(); seq = 0; escaped = False
     try:

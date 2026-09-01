@@ -1,5 +1,5 @@
 serial_port: /dev/petcargo_stc
-serial_baud: 115200
+serial_baud: 9600
 serial_timeout: 1.5
 odom_topic: /odom
 internal_cmd_topic: /petcargo/cmd_vel_request
@@ -9,4 +9,3 @@ linear_timeout: 7.0
 angular_timeout: 15.0
 dashboard_host: 0.0.0.0
 dashboard_port: 8080
-

@@ -11,7 +11,7 @@
 
 1. `rosnode list` 应有 `serial_bridge`、`motion_executor`、`safety_gateway`、`dashboard_server`。
 2. `python3 tools/serial_diagnostic.py /dev/petcargo_stc` 应持续看到 TELEMETRY。
-3. STC 与 ROS 串口均必须为 115200、8N1。
+3. CSK、STC 与 ROS 串口均必须为 9600、8N1。
 4. 若 CRC 错误持续增长，先缩短 USB/杜邦线并断开 CSK，只保留 STC USB 排查。
 
 ## CSK 能说话但 STC 无动作
@@ -41,4 +41,3 @@
 - 检查轮胎打滑和地面；先保持最大速度 0.18 m/s。
 - 查看动作结果中的 `actual_mm`，区分里程计误差和动作未完成。
 - 若超时，先确认 `/odom` 时间戳和更新率，再调整机械问题，不提高速度。
-

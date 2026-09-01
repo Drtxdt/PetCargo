@@ -1,5 +1,5 @@
 {
-  "uart": {"baud": 115200, "data_bits": 8, "parity": "none", "stop_bits": 1},
+  "uart": {"baud": 9600, "data_bits": 8, "parity": "none", "stop_bits": 1},
   "csk_to_stc": {
     "header": [165, 90],
     "checksum": "command_xor_0xff",

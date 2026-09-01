@@ -1,5 +1,6 @@
 #include "stc15.h"
 #include "hal.h"
+#include "config.h"
 
 #define ADC_POWER   0x80
 #define ADC_SPEED_L 0x20
@@ -117,7 +118,7 @@ static void ir_init(void)
 
 static void uart_init(void)
 {
-    uint16_t reload = (uint16_t)(65536UL - (FOSC / 4UL / 115200UL));
+    uint16_t reload = (uint16_t)(65536UL - (FOSC / 4UL / PETCARGO_UART_BAUD));
     SCON = 0x50;
     S2CON = 0x50;
     T2H = (uint8_t)(reload >> 8);

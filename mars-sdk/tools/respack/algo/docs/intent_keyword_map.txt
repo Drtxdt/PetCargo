@@ -2,16 +2,8 @@
 1_1:xiao3 ai4 tong2 xue2
 2_0:ting2 xia4 lai2
 2_1:ting2 xia4 lai2
-2_2:bu4 yao4 dong4
-2_3:ting2 xia4
-2_4:bie2 dong4
-2_5:li4 ji2 ting2 zhi3
-3_0:hou4 tui4
-3_1:hou4 tui4
-3_2:wang3 hou4 tui4
-3_3:wang3 hou4 zou3
-3_4:xiang4 hou4 tui4
-3_5:tui4 hou4
+2_2:ting2 che1
+2_3:bie2 dong4
 4_0:zhuan4 ge4 quan1
 4_1:zhuan4 ge4 quan1
 4_2:zhuan3 yi1 quan1
@@ -22,13 +14,49 @@
 5_2:shui4 yi2 hui4
 5_3:qu4 shui4 jiao4
 5_4:xiu1 xi1 yi2 xia4
-6_0:kai1 shi3 yun4 shu1
-6_1:kai1 shi3 yun4 shu1
-6_2:kai1 shi3 song4 huo4
-6_3:qie1 huan4 yun4 shu1 mo2 shi4
-6_4:jin4 ru4 yun4 shu1 mo2 shi4
-7_0:chong3 wu4 mo2 shi4
-7_1:chong3 wu4 mo2 shi4
-7_2:qie1 huan4 chong3 wu4 mo2 shi4
-7_3:jie2 shu4 yun4 shu1
-7_4:jin4 ru4 chong3 wu4 mo2 shi4
+6_0:xiang4 qian2 zou3
+6_1:xiang4 qian2 zou3
+6_2:wang3 qian2 zou3
+6_3:qian2 jin4
+7_0:xiang4 hou4 zou3
+7_1:xiang4 hou4 zou3
+7_2:wang3 hou4 zou3
+7_3:hou4 tui4
+7_0:xiang4 zuo3 zou3
+7_1:xiang4 zuo3 zou3
+7_2:wang3 zuo3 zou3
+7_3:zuo3 yi2
+8_0:xiang4 you4 zou3
+8_1:xiang4 you4 zou3
+8_2:you4 yi2
+8_3:wang3 you4 zou3
+9_0:qi3 chuang2
+9_1:qi3 chuang2
+9_2:bie2 shui4 le0
+9_3:xing3 yi1 xing3
+10_0:mai4 ge4 meng2
+10_1:mai4 ge4 meng2
+10_2:ke3 ai4 yi1 dian3
+10_3:xiao4 yi2 ge4
+11_0:chang4 shou3 ge1
+11_1:chang4 shou3 ge1
+11_2:chang4 ge1
+11_3:bo1 fang4 yin1 yue4
+12_0:ni3 kai1 xin1 ma1
+12_1:ni3 kai1 xin1 ma1
+12_2:gao1 xing4 ma1
+12_3:xin1 qing2 zen3 me4 yang4
+13_0:bao4 gao4 zhuang4 tai4
+13_1:bao4 gao4 zhuang4 tai4
+13_2:xian4 zai4 zen3 me4 yang4
+13_3:cha2 kan4 zhuang4 tai4
+15_0:tui4 chu1 shi2 bie2
+15_1:tui4 chu1 shi2 bie2
+15_2:qu4 wan2 ba4
+15_3:zai4 jian4
+16_0:da4 dian3 sheng1
+16_1:da4 dian3 sheng1
+16_2:da4 sheng1
+17_0:xiao3 dian3 sheng1
+17_1:xiao3 dian3 sheng1
+17_2:xiao3 sheng1

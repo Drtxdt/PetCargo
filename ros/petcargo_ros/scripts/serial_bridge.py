@@ -39,7 +39,7 @@ EVENT_NAMES = {
 class SerialBridge:
     def __init__(self) -> None:
         self.port_name = rospy.get_param("~serial_port", "/dev/petcargo_stc")
-        self.baud = int(rospy.get_param("~serial_baud", 115200))
+        self.baud = int(rospy.get_param("~serial_baud", 9600))
         self.link_timeout = float(rospy.get_param("~serial_timeout", 1.5))
         self.parser = FrameParser()
         self.serial = None

@@ -5,7 +5,7 @@
 - 编译器：SDCC，MCS-51 后端。
 - MCU：IAP15F2K61S2 / STC15F2K60S2 兼容寄存器集。
 - 系统时钟：11.0592 MHz。
-- UART1 与 UART2：115200、8N1，共用 Timer2 波特率发生器。
+- UART1 与 UART2：9600、8N1，共用 Timer2 波特率发生器。
 - 输出：`build/petcargo.hex`。
 - SDCC 使用 large memory model，把状态与协议缓冲区放入片上扩展 RAM，避免挤占 8051 的 128 字节直接寻址 RAM。
 
@@ -15,7 +15,7 @@
 
 - Timer0：1 ms 调度时基。
 - Timer1：板载蜂鸣器硬件方波。
-- Timer2：UART1 和 UART2 的 115200 波特率。
+- Timer2：UART1 和 UART2 的 9600 波特率。
 
 ## 首次校准
 

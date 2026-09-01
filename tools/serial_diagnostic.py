@@ -14,7 +14,7 @@ from petcargo_ros.protocol import FrameParser, MessageType, Telemetry, telemetry
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("port")
-    parser.add_argument("--baud", type=int, default=115200)
+    parser.add_argument("--baud", type=int, default=9600)
     args = parser.parse_args()
     import serial
     decoder = FrameParser()
@@ -31,4 +31,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
