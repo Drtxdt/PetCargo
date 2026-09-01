@@ -1,0 +1,318 @@
+00000000 a BOOT_HARTID
+00000000 T vector_base
+00000001 A __SMP_CPU_CNT
+000000e0 T __sync_harts	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:404
+00000100 T _start	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/startup_demosoc.S:143
+00000172 t __init_common	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/startup_demosoc.S:261
+000001e0 T _start_premain	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/startup_demosoc.S:309
+000001f4 t __skip_init	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/startup_demosoc.S:319
+00000222 t __amp_wait	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/startup_demosoc.S:366
+00000240 T early_exc_entry	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/startup_demosoc.S:404
+00000280 T _text	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:499
+00000280 A _text_lma
+00000280 T main	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:498
+000002aa T process_thread_erase_a_block_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:85
+000004a2 T process_thread_program_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:174
+00000664 T flash_prog_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:62
+00000696 T erase_sectors	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:267
+000006cc T process_thread_flash_prog_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:282
+00000828 t GPIOA_EventCallback	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:74
+0000085a T process_thread_led_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:82
+00000a06 T run_image	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:165
+00000a38 T boot_flash	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:178
+00000a6c T system_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:198
+00000aaa T contiki_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:213
+00000ad6 T upgrade	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:221
+00000ae2 T get_boot_opt	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:234
+00000b4a T flash_otp_load	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:267
+00000c60 T header_verify	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:349
+00000ce8 T flash_img_is_valid	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:380
+00000d6a T uvlo_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:426
+00000e02 T wakeup_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:454
+00000e84 T __wrap_memcpy	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:539
+00000ea0 T __wrap_memset	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:547
+00000eb4 T SLIP_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:32
+00000ec6 T SLIP_get_tx_size	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:41
+00000ecc T uart_tx_one_char	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:53
+00000ee2 T SLIP_send_frame_delimiter	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:68
+00000ee8 T SLIP_send_frame_data	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:74
+00000f14 T SLIP_send_frame_data_buf	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:88
+00000f3a T SLIP_recv_byte	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:106
+00000f92 T ub_state_save	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:35
+00000fa6 T ub_state_recovery	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:43
+00000fba T ub_state_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:51
+00000fda T uart_receive_bytes	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:61
+00001000 A __HEAP_SIZE
+00001000 A __STACK_SIZE
+00001000 A __TOT_STACK_SIZE
+00001054 T handle_mem_begin	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:96
+00001078 T handle_flash_begin	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:109
+000010be T _mem_data_cpy	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:134
+000010fc T handle_mem_data	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:155
+00001148 T handle_flash_data	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:178
+00001190 T flash_prog_in_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:203
+000011a8 T flash_get_free_buf	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:209
+000011ca T flash_get_rdy_buf	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:219
+000011e4 T flash_set_buf_rdy	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:228
+0000121e T flash_set_buf_free	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:247
+00001248 T _flash_mem_cpy	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:257
+000012e0 T flash_mem_cpy	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:285
+0000130e T handle_mem_finish	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:303
+0000132a T handle_flash_finish	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:313
+0000134a T handle_flash_erase	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:323
+00001378 T handle_read_reg	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:334
+0000138a T handle_write_reg	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:344
+000013a2 T handle_user_cmd_start	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:356
+000013e4 T handle_user_cmd_end	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:368
+0000145c T handle_user_cmd_read	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:395
+00001490 T handle_user_cmd_write	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:408
+000014e6 T calculate_checksum	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:423
+00001502 T do_cmd	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:449
+0000176a T set_resp_error	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:624
+00001780 T UART_EventCallback	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:23
+000017b2 T uart_dev_event	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:41
+000017cc T uart_dev_mode	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:49
+000017de T uart_dev_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:56
+0000183c T uart_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:78
+00001868 T uart_wait_tx_rdy	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:89
+00001890 T process_thread_uart_boot_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:101
+00001aa0 T mbedtls_platform_zeroize	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:85
+00001aaa T mbedtls_md5_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:117
+00001ab4 T mbedtls_md5_free	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:122
+00001abe T mbedtls_internal_md5_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:160
+00002442 T mbedtls_md5_update_ret	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:298
+000024e4 T mbedtls_md5_finish_ret	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:358
+000025de T mbedtls_md5_ret	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:425
+00002646 T eclic_mtip_handler	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/clock.c:22
+0000273a T clock_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/clock.c:41
+0000282c T clock_time	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/clock.c:49
+00002832 t update_time	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:58
+00002872 T etimer_request_poll	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:145
+0000287c T process_thread_etimer_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:80
+0000294c t add_timer	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:151
+00002986 T etimer_set	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:177
+0000299a T etimer_reset	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:192
+000029ae T etimer_expired	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:213
+000029b6 T etimer_pending	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:231
+000029c0 t call_process.part.0	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:186
+00002a0c t call_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:175
+00002a18 t exit_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:124
+00002ab6 t do_poll	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:225
+00002aec T process_init	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:208
+00002b06 T process_run	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:302
+00002bb6 T process_post	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:322
+00002bf0 T process_post_synch	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:362
+00002c0e T process_start	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:99
+00002c3c T process_poll	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:371
+00002c58 T timer_set	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/timer.c:64
+00002c70 T timer_expired	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/timer.c:123
+00002c92 T timer_reset	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/timer.c:84
+00002cae T HAL_CRM_SetUart0ClkDiv	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/cmu/ClockManager.c:209
+00002d08 T HAL_CRM_SetAp_peri_pclkClkDiv	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/cmu/ClockManager.c:1126
+00002d52 t gpio_set_intr_mode	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:63
+00002e44 t gpio_set_pull_mode	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:105
+00002e68 t GPIO_IRQ_Handler	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:442
+00002eb6 T GPIOA	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:124
+00002ebc T GPIO_Initialize	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:148
+00002f4c T GPIO_Control	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:229
+000030d4 T GPIO_PinWrite	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:332
+0000310e T GPIO_PinRead	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:365
+00003146 T GPIO_SetDir	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:394
+000031a8 T AON_IOMuxManager_PinConfigure	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/iomux/IOMuxManager.c:171
+000031ea T IOMuxManager_PinConfigure	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/iomux/IOMuxManager.c:35
+00003262 t UART0_IRQ_Handler	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:1183
+00003400 t __uart_compute_div	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:494
+00003490 T UART0	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:446
+00003496 T uart_compute_div	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:524
+000034d4 T UART_Initialize	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:547
+0000353a T UART_Uninitialize	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:592
+0000359c T UART_PowerControl	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:640
+00003662 T UART_Send	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:714
+00003706 T UART_Receive	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:770
+0000375e T UART_GetRxCount	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:828
+00003770 T UART_Control	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:837
+00003a2e T UART_GetStatus	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:1045
+00003a90 T flash_init	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:33
+00003ace T flash_write_protection_set	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:264
+00003adc T spirom_prepare_cmd	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:296
+00003b00 T spirom_cmd_send	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:307
+00003efc T flash_status_register_get	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:173
+00003f4c t mxic_wr_en	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:519
+00003fa4 t mxic_wr_rdy	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:545
+00003fee T flash_status_register_set	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:212
+0000408a T spirom_set_addr4	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:601
+000040c0 T mxic_qd_bit	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:956
+000040e0 T mxic_enable_qd	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:974
+0000416c T mxic_security_program	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:1104
+000041a4 T flash_security_write	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:140
+000041dc T mxic_security_erase	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:1123
+0000420c T flash_security_erase	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:157
+00004244 T mxic_security_read	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:1144
+0000425a T flash_security_read	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:121
+0000428a T mxic_release_deep_power_down	D:\Chipskytek\repo\listenai_rtos\modules\nvs/spiflash.c:1165
+000042a2 T platform_init	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:133
+0000440a T spib_get_data	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:320
+0000440e T spib_prepare_dctrl	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:340
+0000445c T spib_prepare_dctrl2	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:364
+000044ce T spib_wait_spi	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:407
+000044e4 T spib_wait_rx_empty	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:425
+000044fc T spib_get_rx_entries	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:437
+00004504 T spib_clr_fifo	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:446
+0000450e T spib_exe_cmmd	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:454
+00004518 T spib_exe_cmmd2	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:464
+00004520 T spib_rx_data	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:472
+00004580 T spib_tx_data	D:\Chipskytek\repo\listenai_rtos\modules\nvs/platform.c:495
+000045b4 t system_default_exception_handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:171
+000045b6 T core_exception_handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:289
+000045f4 T ECLIC_Init	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:316
+00004626 T _premain_init	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:453
+000046a8 T _postmain_fini	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:505
+000046aa T _init	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:521
+000046ac T _fini
+000046ae T irq_vectors_init	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:547
+000046c2 T SystemInit	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:122
+000046e0 T register_ISR	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:555
+00004832 T Interrupt1_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:601
+0000483c T Interrupt2_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:602
+00004846 T Interrupt3_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:603
+00004850 T Interrupt4_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:604
+0000485a T Interrupt5_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:605
+00004864 T Interrupt6_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:606
+0000486e T Interrupt7_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:607
+00004878 T Interrupt8_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:608
+00004882 T Interrupt9_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:609
+0000488c T Interrupt10_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:610
+00004896 T Interrupt11_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:611
+000048a0 T Interrupt12_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:612
+000048aa T Interrupt13_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:613
+000048b4 T Interrupt14_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:614
+000048be T Interrupt15_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:615
+000048c8 T Interrupt16_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:616
+000048d2 T Interrupt17_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:617
+000048dc T Interrupt18_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:618
+000048e6 T Interrupt19_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:619
+000048f0 T Interrupt20_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:620
+000048fa T Interrupt21_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:621
+00004904 T Interrupt22_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:622
+0000490e T Interrupt23_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:623
+00004918 T Interrupt24_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:624
+00004922 T Interrupt25_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:625
+0000492c T Interrupt26_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:626
+00004936 T Interrupt27_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:627
+00004940 T Interrupt28_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:628
+0000494a T Interrupt29_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:629
+00004954 T Interrupt30_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:630
+0000495e T Interrupt31_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:631
+00004968 T Interrupt32_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:632
+00004972 T Interrupt33_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:633
+0000497c T Interrupt34_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:634
+00004986 T Interrupt35_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:635
+000049c0 W exc_entry	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/intexc_demosoc.S:160
+00004a40 W irq_entry	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/intexc_demosoc.S:204
+00004ab2 W default_intexc_handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/intexc_demosoc.S:232
+00004ab2 t Undef_Handler	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/gcc/intexc_demosoc.S:232
+00004ab6 T sec_boot_verify
+00004bce T xcrc32
+00004c30 T atexit
+00004c3a T __libc_fini_array
+00004c6e T __libc_init_array
+00004ccc T __register_exitproc
+00004d3c d __fini_array_end
+00004d3c d __fini_array_start
+00004d3c d __init_array_end
+00004d3c d __init_array_start
+00004d3c d __preinit_array_end
+00004d3c d __preinit_array_start
+00004d3c T _etext
+00004d40 A _data_lma
+20034000 D _data	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:19
+20034000 D erase_a_block_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:19
+20034010 D flash_prog	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:26
+20034034 D flash_prog_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:18
+20034044 D program_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:20
+20034054 D flash_dev	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:38
+20034064 D led_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:69
+20034074 D uart_boot_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:16
+20034084 D etimer_process	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:55
+20034094 d info_a	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:25
+200340a0 d info_b	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:45
+200340b0 d val.3
+200340b4 D s_mem_remaining	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:30
+200340b8 D cur_baud_rate	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:18
+200340bc D nxt_baud_rate	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:18
+200340c0 d uart_mode	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:19
+200340c4 D memset_func	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_burn_md5.c:83
+200340c8 D SystemCoreClock	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:89
+200341c0 d gpioa_resources	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:31
+200341d4 d gpiob_resources	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:51
+200341e8 d uart0_resources	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:430
+2003427c D __fsymtab_end
+2003427c D __fsymtab_start
+2003427c D __rt_init_end
+2003427c D __rt_init_start
+2003427c D __vsymtab_end
+2003427c D __vsymtab_start
+20034280 D __bss_start
+20034280 D __tls_base
+20034280 D _edata
+20034280 b FlashAddr.10
+20034284 b RetData.3
+20034288 b RetData.9
+2003428c b data_buf.5
+20034290 b event.1
+20034294 b flash_addr.7
+20034298 b j.2
+2003429c b j.8
+200342a0 b remain_size.6
+200342a4 b step_size.4
+200342a8 b GPIOA_Event	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:63
+200342ac b GPIOA_Handler.4
+200342b0 b boot_info	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:61
+200342b8 b cycles_prev.1
+200342c0 b state.2
+200342c4 b trigger_cnt	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:64
+200342c8 B s_mem_cpy_dat	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:22
+200342cc B s_mem_cpy_len	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:23
+200342d0 B s_mem_i	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:26
+200342d4 B s_mem_len	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:26
+200342d8 B s_mem_offset	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:29
+200342dc B s_mem_seq	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:32
+200342e0 B ubs	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:20
+200342e8 B UART_Handler	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:17
+200342ec b error.3
+200342f0 b n.5
+200342f4 b rdy.0
+200342f8 b uart_event.6
+200342fc b usart_rx_event_complete.7
+20034300 B usart_tx_event_complete	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/uart_boot.c:20
+20034304 b acc_tick.0
+20034308 b sys_tick_ms	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/clock.c:14
+2003430c b tm_count	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/clock.c:13
+20034310 b next_expiration	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:53
+20034314 b timerlist	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/etimer.c:52
+20034318 b fevent	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:68
+20034319 b lastevent	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:57
+2003431a b nevents	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:68
+2003431b b poll_requested	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:75
+2003431c B process_current	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:55
+20034320 B process_list	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:54
+20034324 b gpio_use_cnt	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:59
+20034328 B _global_atexit
+2003432c B flash_ops	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/flash_prog.c:280
+20034338 b timer.5
+20034348 b trigger_records	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/main.c:67
+20034370 B s_slip	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/slip.c:29
+20034380 B ub	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/stub_load.c:19
+20034394 b events	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/contiki/process.c:69
+20034514 b gpioa_info	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:23
+200345f8 b gpiob_info	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/gpio/gpio.c:43
+20034694 b uart0_info	D:\Chipskytek\repo\listenai_rtos\src\mars\boot/driver/uart/uart.c:428
+20034700 B OS_CPU_Vector_Table	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:541
+20034790 b SystemExceptionHandlers	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:153
+200347d4 B SystemIRegionInfo	D:\Chipskytek\repo\listenai_rtos\chip\mars\bsp/system_RISCVN300.c:370
+200347e8 b _global_atexit0
+20034874 B _end
+20034874 B end
+20034878 b crc32_table
+200348b0 D __global_pointer$
+20038000 B _sp

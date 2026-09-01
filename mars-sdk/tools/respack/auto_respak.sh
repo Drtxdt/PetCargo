@@ -1,0 +1,1 @@
+python3 ./respack.py -p config.ini

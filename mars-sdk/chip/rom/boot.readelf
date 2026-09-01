@@ -1,0 +1,445 @@
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF32
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           RISC-V
+  Version:                           0x1
+  Entry point address:               0x100
+  Start of program headers:          52 (bytes into file)
+  Start of section headers:          334128 (bytes into file)
+  Flags:                             0x3, RVC, single-float ABI
+  Size of this header:               52 (bytes)
+  Size of program headers:           32 (bytes)
+  Number of program headers:         4
+  Size of section headers:           40 (bytes)
+  Number of section headers:         22
+  Section header string table index: 21
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .init             PROGBITS        00000000 001000 000268 00  AX  0   0 64
+  [ 2] .text             PROGBITS        00000280 001280 004abc 00  AX  0   0 64
+  [ 3] .data             PROGBITS        20034000 006000 000280 00  WA  0   0  8
+  [ 4] .tbss_space       PROGBITS        20034280 006280 000000 00   W  0   0  8
+  [ 5] .bss              NOBITS          20034280 006280 0005f4 00  WA  0   0 64
+  [ 6] .bss_noinit       NOBITS          20034878 006280 000400 00  WA  0   0  8
+  [ 7] .heap             NOBITS          20034c80 006280 001000 00  WA  0   0 16
+  [ 8] .stack            NOBITS          20037000 007000 001000 00  WA  0   0  1
+  [ 9] .debug_info       PROGBITS        00000000 006280 0190c1 00      0   0  1
+  [10] .debug_abbrev     PROGBITS        00000000 01f341 003e32 00      0   0  1
+  [11] .debug_loc        PROGBITS        00000000 023173 00b28c 00      0   0  1
+  [12] .debug_aranges    PROGBITS        00000000 02e400 000ba0 00      0   0  8
+  [13] .debug_ranges     PROGBITS        00000000 02efa0 001660 00      0   0  8
+  [14] .debug_line       PROGBITS        00000000 030600 012743 00      0   0  1
+  [15] .debug_str        PROGBITS        00000000 042d43 009fe9 01  MS  0   0  1
+  [16] .comment          PROGBITS        00000000 04cd2c 000012 01  MS  0   0  1
+  [17] .riscv.attributes RISCV_ATTRIBUTE 00000000 04cd3e 000039 00      0   0  1
+  [18] .debug_frame      PROGBITS        00000000 04cd78 002104 00      0   0  4
+  [19] .symtab           SYMTAB          00000000 04ee7c 0016a0 10     20 117  4
+  [20] .strtab           STRTAB          00000000 05051c 00133c 00      0   0  1
+  [21] .shstrtab         STRTAB          00000000 051858 0000d8 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  p (processor specific)
+
+There are no section groups in this file.
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  LOAD           0x001000 0x00000000 0x00000000 0x04d3c 0x04d3c R E 0x1000
+  LOAD           0x006000 0x20034000 0x00004d40 0x00280 0x00280 RW  0x1000
+  LOAD           0x000280 0x20034280 0x20034280 0x00000 0x01a00 RW  0x1000
+  LOAD           0x000000 0x20037000 0x20035c80 0x00000 0x01000 RW  0x1000
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     .init .text 
+   01     .data 
+   02     .bss .bss_noinit .heap 
+   03     .stack 
+
+There is no dynamic section in this file.
+
+There are no relocations in this file.
+
+The decoding of unwind sections for machine type RISC-V is not currently supported.
+
+Symbol table '.symtab' contains 362 entries:
+   Num:    Value  Size Type    Bind   Vis      Ndx Name
+     0: 00000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 00000000     0 SECTION LOCAL  DEFAULT    1 
+     2: 00000280     0 SECTION LOCAL  DEFAULT    2 
+     3: 20034000     0 SECTION LOCAL  DEFAULT    3 
+     4: 20034280     0 SECTION LOCAL  DEFAULT    4 
+     5: 20034280     0 SECTION LOCAL  DEFAULT    5 
+     6: 20034878     0 SECTION LOCAL  DEFAULT    6 
+     7: 20034c80     0 SECTION LOCAL  DEFAULT    7 
+     8: 20037000     0 SECTION LOCAL  DEFAULT    8 
+     9: 00000000     0 SECTION LOCAL  DEFAULT    9 
+    10: 00000000     0 SECTION LOCAL  DEFAULT   10 
+    11: 00000000     0 SECTION LOCAL  DEFAULT   11 
+    12: 00000000     0 SECTION LOCAL  DEFAULT   12 
+    13: 00000000     0 SECTION LOCAL  DEFAULT   13 
+    14: 00000000     0 SECTION LOCAL  DEFAULT   14 
+    15: 00000000     0 SECTION LOCAL  DEFAULT   15 
+    16: 00000000     0 SECTION LOCAL  DEFAULT   16 
+    17: 00000000     0 SECTION LOCAL  DEFAULT   17 
+    18: 00000000     0 SECTION LOCAL  DEFAULT   18 
+    19: 00000000     0 FILE    LOCAL  DEFAULT  ABS startup_demosoc.o
+    20: 00000000     0 NOTYPE  LOCAL  DEFAULT  ABS BOOT_HARTID
+    21: 00000222     0 NOTYPE  LOCAL  DEFAULT    1 __amp_wait
+    22: 00000172     0 NOTYPE  LOCAL  DEFAULT    1 __init_common
+    23: 000001f4     0 NOTYPE  LOCAL  DEFAULT    1 __skip_init
+    24: 00000000     0 FILE    LOCAL  DEFAULT  ABS system_RISCVN300.c
+    25: 000045b4     2 FUNC    LOCAL  DEFAULT    2 system_default_e[...]
+    26: 20034790    68 OBJECT  LOCAL  DEFAULT    5 SystemExceptionH[...]
+    27: 00000000     0 FILE    LOCAL  DEFAULT  ABS main.c
+    28: 00000828    50 FUNC    LOCAL  DEFAULT    2 GPIOA_EventCallback
+    29: 20034338    16 OBJECT  LOCAL  DEFAULT    5 timer.5
+    30: 20034348    40 OBJECT  LOCAL  DEFAULT    5 trigger_records
+    31: 200342a8     4 OBJECT  LOCAL  DEFAULT    5 GPIOA_Event
+    32: 200342ac     4 OBJECT  LOCAL  DEFAULT    5 GPIOA_Handler.4
+    33: 200342b0     4 OBJECT  LOCAL  DEFAULT    5 boot_info
+    34: 200342b8     8 OBJECT  LOCAL  DEFAULT    5 cycles_prev.1
+    35: 200342c0     4 OBJECT  LOCAL  DEFAULT    5 state.2
+    36: 200342c4     4 OBJECT  LOCAL  DEFAULT    5 trigger_cnt
+    37: 200340b0     4 OBJECT  LOCAL  DEFAULT    3 val.3
+    38: 00000000     0 FILE    LOCAL  DEFAULT  ABS flash_prog.c
+    39: 20034280     4 OBJECT  LOCAL  DEFAULT    5 FlashAddr.10
+    40: 20034284     4 OBJECT  LOCAL  DEFAULT    5 RetData.3
+    41: 20034288     4 OBJECT  LOCAL  DEFAULT    5 RetData.9
+    42: 2003428c     4 OBJECT  LOCAL  DEFAULT    5 data_buf.5
+    43: 20034290     1 OBJECT  LOCAL  DEFAULT    5 event.1
+    44: 20034294     4 OBJECT  LOCAL  DEFAULT    5 flash_addr.7
+    45: 20034298     4 OBJECT  LOCAL  DEFAULT    5 j.2
+    46: 2003429c     4 OBJECT  LOCAL  DEFAULT    5 j.8
+    47: 200342a0     4 OBJECT  LOCAL  DEFAULT    5 remain_size.6
+    48: 200342a4     4 OBJECT  LOCAL  DEFAULT    5 step_size.4
+    49: 00000000     0 FILE    LOCAL  DEFAULT  ABS slip.c
+    50: 00000000     0 FILE    LOCAL  DEFAULT  ABS stub_load.c
+    51: 00000000     0 FILE    LOCAL  DEFAULT  ABS uart_boot.c
+    52: 200342ec     4 OBJECT  LOCAL  DEFAULT    5 error.3
+    53: 200342f0     4 OBJECT  LOCAL  DEFAULT    5 n.5
+    54: 200342f4     4 OBJECT  LOCAL  DEFAULT    5 rdy.0
+    55: 200342f8     4 OBJECT  LOCAL  DEFAULT    5 uart_event.6
+    56: 200342fc     4 OBJECT  LOCAL  DEFAULT    5 usart_rx_event_c[...]
+    57: 200340c0     4 OBJECT  LOCAL  DEFAULT    3 uart_mode
+    58: 00000000     0 FILE    LOCAL  DEFAULT  ABS uart_burn_md5.c
+    59: 00000000     0 FILE    LOCAL  DEFAULT  ABS clock.c
+    60: 20034304     4 OBJECT  LOCAL  DEFAULT    5 acc_tick.0
+    61: 20034308     4 OBJECT  LOCAL  DEFAULT    5 sys_tick_ms
+    62: 2003430c     4 OBJECT  LOCAL  DEFAULT    5 tm_count
+    63: 00000000     0 FILE    LOCAL  DEFAULT  ABS etimer.c
+    64: 00002832    64 FUNC    LOCAL  DEFAULT    2 update_time
+    65: 0000294c    58 FUNC    LOCAL  DEFAULT    2 add_timer
+    66: 20034310     4 OBJECT  LOCAL  DEFAULT    5 next_expiration
+    67: 20034314     4 OBJECT  LOCAL  DEFAULT    5 timerlist
+    68: 00000000     0 FILE    LOCAL  DEFAULT  ABS process.c
+    69: 000029c0    76 FUNC    LOCAL  DEFAULT    2 call_process.part.0
+    70: 00002a18   158 FUNC    LOCAL  DEFAULT    2 exit_process
+    71: 00002a0c    12 FUNC    LOCAL  DEFAULT    2 call_process
+    72: 00002ab6    54 FUNC    LOCAL  DEFAULT    2 do_poll
+    73: 20034394   384 OBJECT  LOCAL  DEFAULT    5 events
+    74: 20034318     1 OBJECT  LOCAL  DEFAULT    5 fevent
+    75: 20034319     1 OBJECT  LOCAL  DEFAULT    5 lastevent
+    76: 2003431a     1 OBJECT  LOCAL  DEFAULT    5 nevents
+    77: 2003431b     1 OBJECT  LOCAL  DEFAULT    5 poll_requested
+    78: 00000000     0 FILE    LOCAL  DEFAULT  ABS timer.c
+    79: 00000000     0 FILE    LOCAL  DEFAULT  ABS ClockManager.c
+    80: 00000000     0 FILE    LOCAL  DEFAULT  ABS gpio.c
+    81: 00002d52   242 FUNC    LOCAL  DEFAULT    2 gpio_set_intr_mode
+    82: 00002e44    36 FUNC    LOCAL  DEFAULT    2 gpio_set_pull_mode
+    83: 00002e68    78 FUNC    LOCAL  DEFAULT    2 GPIO_IRQ_Handler
+    84: 20034514   228 OBJECT  LOCAL  DEFAULT    5 gpioa_info
+    85: 200345f8   156 OBJECT  LOCAL  DEFAULT    5 gpiob_info
+    86: 20034094    12 OBJECT  LOCAL  DEFAULT    3 info_a
+    87: 200340a0    12 OBJECT  LOCAL  DEFAULT    3 info_b
+    88: 200341c0    20 OBJECT  LOCAL  DEFAULT    3 gpioa_resources
+    89: 200341d4    20 OBJECT  LOCAL  DEFAULT    3 gpiob_resources
+    90: 20034324     1 OBJECT  LOCAL  DEFAULT    5 gpio_use_cnt
+    91: 00000000     0 FILE    LOCAL  DEFAULT  ABS IOMuxManager.c
+    92: 00000000     0 FILE    LOCAL  DEFAULT  ABS uart.c
+    93: 00003262   414 FUNC    LOCAL  DEFAULT    2 UART0_IRQ_Handler
+    94: 00003400   144 FUNC    LOCAL  DEFAULT    2 __uart_compute_div
+    95: 20034694    68 OBJECT  LOCAL  DEFAULT    5 uart0_info
+    96: 200341e8    32 OBJECT  LOCAL  DEFAULT    3 uart0_resources
+    97: 00000000     0 FILE    LOCAL  DEFAULT  ABS spiflash.c
+    98: 00003f4c    88 FUNC    LOCAL  DEFAULT    2 mxic_wr_en
+    99: 00003fa4    74 FUNC    LOCAL  DEFAULT    2 mxic_wr_rdy
+   100: 00000000     0 FILE    LOCAL  DEFAULT  ABS platform.c
+   101: 00000000     0 FILE    LOCAL  DEFAULT  ABS intexc_demosoc.o
+   102: 00004ab2     0 NOTYPE  LOCAL  DEFAULT    2 Undef_Handler
+   103: 00000000     0 FILE    LOCAL  DEFAULT  ABS crc32.o
+   104: 20034878  1024 OBJECT  LOCAL  DEFAULT    6 crc32_table
+   105: 00000000     0 FILE    LOCAL  DEFAULT  ABS atexit.c
+   106: 00000000     0 FILE    LOCAL  DEFAULT  ABS fini.c
+   107: 00000000     0 FILE    LOCAL  DEFAULT  ABS init.c
+   108: 00000000     0 FILE    LOCAL  DEFAULT  ABS __atexit.c
+   109: 200347e8   140 OBJECT  LOCAL  DEFAULT    5 _global_atexit0
+   110: 00000000     0 FILE    LOCAL  DEFAULT  ABS 
+   111: 00004d3c     0 NOTYPE  LOCAL  DEFAULT    3 __fini_array_end
+   112: 00004d3c     0 NOTYPE  LOCAL  DEFAULT    3 __fini_array_start
+   113: 00004d3c     0 NOTYPE  LOCAL  DEFAULT    3 __init_array_end
+   114: 00004d3c     0 NOTYPE  LOCAL  DEFAULT    3 __preinit_array_end
+   115: 00004d3c     0 NOTYPE  LOCAL  DEFAULT    3 __init_array_start
+   116: 00004d3c     0 NOTYPE  LOCAL  DEFAULT    3 __preinit_array_start
+   117: 00001868    40 FUNC    GLOBAL DEFAULT    2 uart_wait_tx_rdy
+   118: 20034370    16 OBJECT  GLOBAL DEFAULT    5 s_slip
+   119: 000042a2   360 FUNC    GLOBAL DEFAULT    2 platform_init
+   120: 00000ee2     6 FUNC    GLOBAL DEFAULT    2 SLIP_send_frame_[...]
+   121: 0000375e    18 FUNC    GLOBAL DEFAULT    2 UART_GetRxCount
+   122: 000041dc    48 FUNC    GLOBAL DEFAULT    2 mxic_security_erase
+   123: 00000696    54 FUNC    GLOBAL DEFAULT    2 erase_sectors
+   124: 000017de    94 FUNC    GLOBAL DEFAULT    2 uart_dev_init
+   125: 00001000     0 NOTYPE  GLOBAL DEFAULT  ABS __HEAP_SIZE
+   126: 00004bce    98 FUNC    GLOBAL DEFAULT    2 xcrc32
+   127: 200348b0     0 NOTYPE  GLOBAL DEFAULT    3 __global_pointer$
+   128: 0000495e    10 FUNC    GLOBAL DEFAULT    2 Interrupt31_Handler
+   129: 00003496    62 FUNC    GLOBAL DEFAULT    2 uart_compute_div
+   130: 000002aa   504 FUNC    GLOBAL DEFAULT    2 process_thread_e[...]
+   131: 000029b6    10 FUNC    GLOBAL DEFAULT    2 etimer_pending
+   132: 20034280     0 NOTYPE  GLOBAL DEFAULT    3 __tls_base
+   133: 000045f4    50 FUNC    GLOBAL DEFAULT    2 ECLIC_Init
+   134: 00000f3a    88 FUNC    GLOBAL DEFAULT    2 SLIP_recv_byte
+   135: 000011e4    58 FUNC    GLOBAL DEFAULT    2 flash_set_buf_rdy
+   136: 00003146    98 FUNC    GLOBAL DEFAULT    2 GPIO_SetDir
+   137: 0000416c    56 FUNC    GLOBAL DEFAULT    2 mxic_security_program
+   138: 00002bb6    58 FUNC    GLOBAL DEFAULT    2 process_post
+   139: 00000a6c    62 FUNC    GLOBAL DEFAULT    2 system_init
+   140: 000017cc    18 FUNC    GLOBAL DEFAULT    2 uart_dev_mode
+   141: 0000440e    78 FUNC    GLOBAL DEFAULT    2 spib_prepare_dctrl
+   142: 000034d4   102 FUNC    GLOBAL DEFAULT    2 UART_Initialize
+   143: 20034084    16 OBJECT  GLOBAL DEFAULT    3 etimer_process
+   144: 200340c4     4 OBJECT  GLOBAL DEFAULT    3 memset_func
+   145: 000048dc    10 FUNC    GLOBAL DEFAULT    2 Interrupt18_Handler
+   146: 00004896    10 FUNC    GLOBAL DEFAULT    2 Interrupt11_Handler
+   147: 0000428a    24 FUNC    GLOBAL DEFAULT    2 mxic_release_dee[...]
+   148: 00004d3c     0 NOTYPE  GLOBAL DEFAULT    2 _etext
+   149: 0000299a    20 FUNC    GLOBAL DEFAULT    2 etimer_reset
+   150: 0000494a    10 FUNC    GLOBAL DEFAULT    2 Interrupt29_Handler
+   151: 00000fa6    20 FUNC    GLOBAL DEFAULT    2 ub_state_recovery
+   152: 00002442   162 FUNC    GLOBAL DEFAULT    2 mbedtls_md5_upda[...]
+   153: 00000ad6    12 FUNC    GLOBAL DEFAULT    2 upgrade
+   154: 2003427c     0 NOTYPE  GLOBAL DEFAULT    3 __rt_init_start
+   155: 000048fa    10 FUNC    GLOBAL DEFAULT    2 Interrupt21_Handler
+   156: 2003427c     0 NOTYPE  GLOBAL DEFAULT    3 __fsymtab_end
+   157: 200340bc     4 OBJECT  GLOBAL DEFAULT    3 nxt_baud_rate
+   158: 000004a2   450 FUNC    GLOBAL DEFAULT    2 process_thread_p[...]
+   159: 00004846    10 FUNC    GLOBAL DEFAULT    2 Interrupt3_Handler
+   160: 00002cae    90 FUNC    GLOBAL DEFAULT    2 HAL_CRM_SetUart0[...]
+   161: 00004940    10 FUNC    GLOBAL DEFAULT    2 Interrupt28_Handler
+   162: 20034320     4 OBJECT  GLOBAL DEFAULT    5 process_list
+   163: 00002646   244 FUNC    GLOBAL DEFAULT    2 eclic_mtip_handler
+   164: 2003432c    12 OBJECT  GLOBAL DEFAULT    5 flash_ops
+   165: 00004972    10 FUNC    GLOBAL DEFAULT    2 Interrupt33_Handler
+   166: 2003427c     0 NOTYPE  GLOBAL DEFAULT    3 __rt_init_end
+   167: 00004878    10 FUNC    GLOBAL DEFAULT    2 Interrupt8_Handler
+   168: 00000280     0 NOTYPE  GLOBAL DEFAULT  ABS _text_lma
+   169: 200340c8     4 OBJECT  GLOBAL DEFAULT    3 SystemCoreClock
+   170: 00000fda   122 FUNC    GLOBAL DEFAULT    2 uart_receive_bytes
+   171: 00003fee   156 FUNC    GLOBAL DEFAULT    2 flash_status_reg[...]
+   172: 0000485a    10 FUNC    GLOBAL DEFAULT    2 Interrupt5_Handler
+   173: 00000aaa    44 FUNC    GLOBAL DEFAULT    2 contiki_init
+   174: 00002c0e    46 FUNC    GLOBAL DEFAULT    2 process_start
+   175: 00000000     0 OBJECT  GLOBAL DEFAULT    1 vector_base
+   176: 00004986    10 FUNC    GLOBAL DEFAULT    2 Interrupt35_Handler
+   177: 00000d6a   152 FUNC    GLOBAL DEFAULT    2 uvlo_process
+   178: 00003770   702 FUNC    GLOBAL DEFAULT    2 UART_Control
+   179: 00002bf0    30 FUNC    GLOBAL DEFAULT    2 process_post_synch
+   180: 20034044    16 OBJECT  GLOBAL DEFAULT    3 program_process
+   181: 000049c0     0 NOTYPE  WEAK   DEFAULT    2 exc_entry
+   182: 00004a40     0 NOTYPE  WEAK   DEFAULT    2 irq_entry
+   183: 00004936    10 FUNC    GLOBAL DEFAULT    2 Interrupt27_Handler
+   184: 00002ebc   144 FUNC    GLOBAL DEFAULT    2 GPIO_Initialize
+   185: 0000492c    10 FUNC    GLOBAL DEFAULT    2 Interrupt26_Handler
+   186: 00000240     0 FUNC    GLOBAL DEFAULT    1 early_exc_entry
+   187: 00002986    20 FUNC    GLOBAL DEFAULT    2 etimer_set
+   188: 00001502   616 FUNC    GLOBAL DEFAULT    2 do_cmd
+   189: 0000408a    54 FUNC    GLOBAL DEFAULT    2 spirom_set_addr4
+   190: 0000287c   208 FUNC    GLOBAL DEFAULT    2 process_thread_e[...]
+   191: 00004ab2     0 NOTYPE  WEAK   DEFAULT    2 default_intexc_h[...]
+   192: 00003efc    80 FUNC    GLOBAL DEFAULT    2 flash_status_reg[...]
+   193: 0000085a   428 FUNC    GLOBAL DEFAULT    2 process_thread_l[...]
+   194: 0000440a     4 FUNC    GLOBAL DEFAULT    2 spib_get_data
+   195: 000046e0   338 FUNC    GLOBAL DEFAULT    2 register_ISR
+   196: 00003adc    36 FUNC    GLOBAL DEFAULT    2 spirom_prepare_cmd
+   197: 00002c3c    28 FUNC    GLOBAL DEFAULT    2 process_poll
+   198: 00004c6e    94 FUNC    GLOBAL DEFAULT    2 __libc_init_array
+   199: 00001490    86 FUNC    GLOBAL DEFAULT    2 handle_user_cmd_write
+   200: 00003a90    62 FUNC    GLOBAL DEFAULT    2 flash_init
+   201: 00002f4c   392 FUNC    GLOBAL DEFAULT    2 GPIO_Control
+   202: 00000f92    20 FUNC    GLOBAL DEFAULT    2 ub_state_save
+   203: 000006cc   348 FUNC    GLOBAL DEFAULT    2 process_thread_f[...]
+   204: 000044e4    24 FUNC    GLOBAL DEFAULT    2 spib_wait_rx_empty
+   205: 00004580    52 FUNC    GLOBAL DEFAULT    2 spib_tx_data
+   206: 0000310e    56 FUNC    GLOBAL DEFAULT    2 GPIO_PinRead
+   207: 200342cc     4 OBJECT  GLOBAL DEFAULT    5 s_mem_cpy_len
+   208: 000046aa     2 FUNC    GLOBAL DEFAULT    2 _init
+   209: 20034054    16 OBJECT  GLOBAL DEFAULT    3 flash_dev
+   210: 0000497c    10 FUNC    GLOBAL DEFAULT    2 Interrupt34_Handler
+   211: 0000134a    46 FUNC    GLOBAL DEFAULT    2 handle_flash_erase
+   212: 20034380    20 OBJECT  GLOBAL DEFAULT    5 ub
+   213: 00004c3a    52 FUNC    GLOBAL DEFAULT    2 __libc_fini_array
+   214: 000044fc     8 FUNC    GLOBAL DEFAULT    2 spib_get_rx_entries
+   215: 000011a8    34 FUNC    GLOBAL DEFAULT    2 flash_get_free_buf
+   216: 0000486e    10 FUNC    GLOBAL DEFAULT    2 Interrupt7_Handler
+   217: 0000483c    10 FUNC    GLOBAL DEFAULT    2 Interrupt2_Handler
+   218: 00003ace    14 FUNC    GLOBAL DEFAULT    2 flash_write_prot[...]
+   219: 0000445c   114 FUNC    GLOBAL DEFAULT    2 spib_prepare_dctrl2
+   220: 200342d8     4 OBJECT  GLOBAL DEFAULT    5 s_mem_offset
+   221: 000000e0     2 FUNC    GLOBAL DEFAULT    1 __sync_harts
+   222: 00001ab4    10 FUNC    GLOBAL DEFAULT    2 mbedtls_md5_free
+   223: 00004ab6   280 FUNC    GLOBAL DEFAULT    2 sec_boot_verify
+   224: 200342d4     4 OBJECT  GLOBAL DEFAULT    5 s_mem_len
+   225: 00001780    50 FUNC    GLOBAL DEFAULT    2 UART_EventCallback
+   226: 00004626   130 FUNC    GLOBAL DEFAULT    2 _premain_init
+   227: 000031a8    66 FUNC    GLOBAL DEFAULT    2 AON_IOMuxManager[...]
+   228: 0000359c   198 FUNC    GLOBAL DEFAULT    2 UART_PowerControl
+   229: 00000fba    32 FUNC    GLOBAL DEFAULT    2 ub_state_init
+   230: 00000a06    50 FUNC    GLOBAL DEFAULT    2 run_image
+   231: 0000273a   242 FUNC    GLOBAL DEFAULT    2 clock_init
+   232: 000010be    62 FUNC    GLOBAL DEFAULT    2 _mem_data_cpy
+   233: 20034010    36 OBJECT  GLOBAL DEFAULT    3 flash_prog
+   234: 00004904    10 FUNC    GLOBAL DEFAULT    2 Interrupt22_Handler
+   235: 00002c70    34 FUNC    GLOBAL DEFAULT    2 timer_expired
+   236: 00000f14    38 FUNC    GLOBAL DEFAULT    2 SLIP_send_frame_[...]
+   237: 20034874     0 NOTYPE  GLOBAL DEFAULT    5 end
+   238: 00003662   164 FUNC    GLOBAL DEFAULT    2 UART_Send
+   239: 200340b8     4 OBJECT  GLOBAL DEFAULT    3 cur_baud_rate
+   240: 00004850    10 FUNC    GLOBAL DEFAULT    2 Interrupt4_Handler
+   241: 00002d08    74 FUNC    GLOBAL DEFAULT    2 HAL_CRM_SetAp_pe[...]
+   242: 000024e4   250 FUNC    GLOBAL DEFAULT    2 mbedtls_md5_fini[...]
+   243: 00001190    24 FUNC    GLOBAL DEFAULT    2 flash_prog_in_process
+   244: 00001aa0    10 FUNC    GLOBAL DEFAULT    2 mbedtls_platform[...]
+   245: 00003b00  1020 FUNC    GLOBAL DEFAULT    2 spirom_cmd_send
+   246: 0000183c    44 FUNC    GLOBAL DEFAULT    2 uart_init
+   247: 00000ea0    20 FUNC    GLOBAL DEFAULT    2 __wrap_memset
+   248: 00001000     0 NOTYPE  GLOBAL DEFAULT  ABS __STACK_SIZE
+   249: 20034328     4 OBJECT  GLOBAL DEFAULT    5 _global_atexit
+   250: 00004918    10 FUNC    GLOBAL DEFAULT    2 Interrupt24_Handler
+   251: 20038000     0 NOTYPE  GLOBAL DEFAULT    8 _sp
+   252: 000048c8    10 FUNC    GLOBAL DEFAULT    2 Interrupt16_Handler
+   253: 000045b6    62 FUNC    GLOBAL DEFAULT    2 core_exception_h[...]
+   254: 000031ea   120 FUNC    GLOBAL DEFAULT    2 IOMuxManager_Pin[...]
+   255: 00000100     0 FUNC    GLOBAL DEFAULT    1 _start
+   256: 20034064    16 OBJECT  GLOBAL DEFAULT    3 led_process
+   257: 0000490e    10 FUNC    GLOBAL DEFAULT    2 Interrupt23_Handler
+   258: 000013a2    66 FUNC    GLOBAL DEFAULT    2 handle_user_cmd_start
+   259: 000048d2    10 FUNC    GLOBAL DEFAULT    2 Interrupt17_Handler
+   260: 00004882    10 FUNC    GLOBAL DEFAULT    2 Interrupt9_Handler
+   261: 000048e6    10 FUNC    GLOBAL DEFAULT    2 Interrupt19_Handler
+   262: 00004ccc   112 FUNC    GLOBAL DEFAULT    2 __register_exitproc
+   263: 00001054    36 FUNC    GLOBAL DEFAULT    2 handle_mem_begin
+   264: 00000001     0 NOTYPE  GLOBAL DEFAULT  ABS __SMP_CPU_CNT
+   265: 00004520    96 FUNC    GLOBAL DEFAULT    2 spib_rx_data
+   266: 000040c0    32 FUNC    GLOBAL DEFAULT    2 mxic_qd_bit
+   267: 00000c60   136 FUNC    GLOBAL DEFAULT    2 header_verify
+   268: 0000145c    52 FUNC    GLOBAL DEFAULT    2 handle_user_cmd_read
+   269: 200347d4    20 OBJECT  GLOBAL DEFAULT    5 SystemIRegionInfo
+   270: 00004968    10 FUNC    GLOBAL DEFAULT    2 Interrupt32_Handler
+   271: 00004864    10 FUNC    GLOBAL DEFAULT    2 Interrupt6_Handler
+   272: 20034074    16 OBJECT  GLOBAL DEFAULT    3 uart_boot_process
+   273: 00000664    50 FUNC    GLOBAL DEFAULT    2 flash_prog_init
+   274: 200342c8     4 OBJECT  GLOBAL DEFAULT    5 s_mem_cpy_dat
+   275: 00000ce8   130 FUNC    GLOBAL DEFAULT    2 flash_img_is_valid
+   276: 00002872    10 FUNC    GLOBAL DEFAULT    2 etimer_request_poll
+   277: 00000ae2   104 FUNC    GLOBAL DEFAULT    2 get_boot_opt
+   278: 000011ca    26 FUNC    GLOBAL DEFAULT    2 flash_get_rdy_buf
+   279: 0000121e    42 FUNC    GLOBAL DEFAULT    2 flash_set_buf_free
+   280: 00004244    22 FUNC    GLOBAL DEFAULT    2 mxic_security_read
+   281: 20034300     4 OBJECT  GLOBAL DEFAULT    5 usart_tx_event_c[...]
+   282: 00000280     0 NOTYPE  GLOBAL DEFAULT    2 _text
+   283: 0000353a    98 FUNC    GLOBAL DEFAULT    2 UART_Uninitialize
+   284: 000001e0     0 FUNC    GLOBAL DEFAULT    1 _start_premain
+   285: 20034280     0 NOTYPE  GLOBAL DEFAULT    3 __bss_start
+   286: 00002aec    26 FUNC    GLOBAL DEFAULT    2 process_init
+   287: 0000176a    22 FUNC    GLOBAL DEFAULT    2 set_resp_error
+   288: 00000280    42 FUNC    GLOBAL DEFAULT    2 main
+   289: 000046ae    20 FUNC    GLOBAL DEFAULT    2 irq_vectors_init
+   290: 200342d0     4 OBJECT  GLOBAL DEFAULT    5 s_mem_i
+   291: 00000a38    52 FUNC    GLOBAL DEFAULT    2 boot_flash
+   292: 00003706    88 FUNC    GLOBAL DEFAULT    2 UART_Receive
+   293: 00000ecc    22 FUNC    GLOBAL DEFAULT    2 uart_tx_one_char
+   294: 0000488c    10 FUNC    GLOBAL DEFAULT    2 Interrupt10_Handler
+   295: 2003427c     0 NOTYPE  GLOBAL DEFAULT    3 __vsymtab_start
+   296: 00002eb6     6 FUNC    GLOBAL DEFAULT    2 GPIOA
+   297: 00004922    10 FUNC    GLOBAL DEFAULT    2 Interrupt25_Handler
+   298: 000010fc    76 FUNC    GLOBAL DEFAULT    2 handle_mem_data
+   299: 20034000    16 OBJECT  GLOBAL DEFAULT    3 erase_a_block_process
+   300: 00001aaa    10 FUNC    GLOBAL DEFAULT    2 mbedtls_md5_init
+   301: 000048f0    10 FUNC    GLOBAL DEFAULT    2 Interrupt20_Handler
+   302: 000046c2    30 FUNC    GLOBAL DEFAULT    2 SystemInit
+   303: 000040e0   140 FUNC    GLOBAL DEFAULT    2 mxic_enable_qd
+   304: 000046ac     2 FUNC    GLOBAL DEFAULT    2 _fini
+   305: 00001000     0 NOTYPE  GLOBAL DEFAULT  ABS __TOT_STACK_SIZE
+   306: 00004c30    10 FUNC    GLOBAL DEFAULT    2 atexit
+   307: 20034034    16 OBJECT  GLOBAL DEFAULT    3 flash_prog_process
+   308: 00004504    10 FUNC    GLOBAL DEFAULT    2 spib_clr_fifo
+   309: 00001890   528 FUNC    GLOBAL DEFAULT    2 process_thread_u[...]
+   310: 200342e8     4 OBJECT  GLOBAL DEFAULT    5 UART_Handler
+   311: 00000eb4    18 FUNC    GLOBAL DEFAULT    2 SLIP_init
+   312: 000014e6    28 FUNC    GLOBAL DEFAULT    2 calculate_checksum
+   313: 000048b4    10 FUNC    GLOBAL DEFAULT    2 Interrupt14_Handler
+   314: 20034000     0 NOTYPE  GLOBAL DEFAULT    3 _data
+   315: 00001148    72 FUNC    GLOBAL DEFAULT    2 handle_flash_data
+   316: 0000450e    10 FUNC    GLOBAL DEFAULT    2 spib_exe_cmmd
+   317: 00002c58    24 FUNC    GLOBAL DEFAULT    2 timer_set
+   318: 2003427c     0 NOTYPE  GLOBAL DEFAULT    3 __vsymtab_end
+   319: 000025de   104 FUNC    GLOBAL DEFAULT    2 mbedtls_md5_ret
+   320: 000048aa    10 FUNC    GLOBAL DEFAULT    2 Interrupt13_Handler
+   321: 20034700   144 OBJECT  GLOBAL DEFAULT    5 OS_CPU_Vector_Table
+   322: 00000b4a   278 FUNC    GLOBAL DEFAULT    2 flash_otp_load
+   323: 00002c92    28 FUNC    GLOBAL DEFAULT    2 timer_reset
+   324: 00003490     6 FUNC    GLOBAL DEFAULT    2 UART0
+   325: 00001248   152 FUNC    GLOBAL DEFAULT    2 _flash_mem_cpy
+   326: 200342e0     8 OBJECT  GLOBAL DEFAULT    5 ubs
+   327: 0000132a    32 FUNC    GLOBAL DEFAULT    2 handle_flash_finish
+   328: 00000e02   130 FUNC    GLOBAL DEFAULT    2 wakeup_process
+   329: 00002b06   176 FUNC    GLOBAL DEFAULT    2 process_run
+   330: 00004832    10 FUNC    GLOBAL DEFAULT    2 Interrupt1_Handler
+   331: 200342dc     4 OBJECT  GLOBAL DEFAULT    5 s_mem_seq
+   332: 000048be    10 FUNC    GLOBAL DEFAULT    2 Interrupt15_Handler
+   333: 20034280     0 NOTYPE  GLOBAL DEFAULT    3 _edata
+   334: 2003431c     4 OBJECT  GLOBAL DEFAULT    5 process_current
+   335: 000046a8     2 FUNC    GLOBAL DEFAULT    2 _postmain_fini
+   336: 200340b4     4 OBJECT  GLOBAL DEFAULT    3 s_mem_remaining
+   337: 20034874     0 NOTYPE  GLOBAL DEFAULT    5 _end
+   338: 000029ae     8 FUNC    GLOBAL DEFAULT    2 etimer_expired
+   339: 00004d40     0 NOTYPE  GLOBAL DEFAULT  ABS _data_lma
+   340: 0000425a    48 FUNC    GLOBAL DEFAULT    2 flash_security_read
+   341: 00000e84    28 FUNC    GLOBAL DEFAULT    2 __wrap_memcpy
+   342: 00004518     8 FUNC    GLOBAL DEFAULT    2 spib_exe_cmmd2
+   343: 000044ce    22 FUNC    GLOBAL DEFAULT    2 spib_wait_spi
+   344: 00000ec6     6 FUNC    GLOBAL DEFAULT    2 SLIP_get_tx_size
+   345: 000017b2    26 FUNC    GLOBAL DEFAULT    2 uart_dev_event
+   346: 0000138a    24 FUNC    GLOBAL DEFAULT    2 handle_write_reg
+   347: 00001378    18 FUNC    GLOBAL DEFAULT    2 handle_read_reg
+   348: 00001078    70 FUNC    GLOBAL DEFAULT    2 handle_flash_begin
+   349: 0000282c     6 FUNC    GLOBAL DEFAULT    2 clock_time
+   350: 0000130e    28 FUNC    GLOBAL DEFAULT    2 handle_mem_finish
+   351: 00000ee8    44 FUNC    GLOBAL DEFAULT    2 SLIP_send_frame_data
+   352: 000030d4    58 FUNC    GLOBAL DEFAULT    2 GPIO_PinWrite
+   353: 000041a4    56 FUNC    GLOBAL DEFAULT    2 flash_security_write
+   354: 2003427c     0 NOTYPE  GLOBAL DEFAULT    3 __fsymtab_start
+   355: 0000420c    56 FUNC    GLOBAL DEFAULT    2 flash_security_erase
+   356: 000012e0    46 FUNC    GLOBAL DEFAULT    2 flash_mem_cpy
+   357: 00003a2e    98 FUNC    GLOBAL DEFAULT    2 UART_GetStatus
+   358: 00004954    10 FUNC    GLOBAL DEFAULT    2 Interrupt30_Handler
+   359: 000048a0    10 FUNC    GLOBAL DEFAULT    2 Interrupt12_Handler
+   360: 00001abe  2436 FUNC    GLOBAL DEFAULT    2 mbedtls_internal[...]
+   361: 000013e4   120 FUNC    GLOBAL DEFAULT    2 handle_user_cmd_end
+
+No version information found in this file.
+Attribute Section: riscv
+File Attributes
+  Tag_RISCV_stack_align: 16-bytes
+  Tag_RISCV_arch: "rv32i2p0_m2p0_a2p0_f2p0_c2p0_b1p0"
+  Tag_RISCV_priv_spec: 1
+  Tag_RISCV_priv_spec_minor: 11

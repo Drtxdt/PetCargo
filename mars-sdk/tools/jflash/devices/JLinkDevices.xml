@@ -1,0 +1,7 @@
+<DataBase>
+  <Device>
+   <ChipInfo Vendor="ListenAI" Name="CSK5060" Core="JLINK_CORE_RISC_V" WorkRAMAddr="0x20030000" WorkRAMSize="0x00008000" />
+   <FlashBankInfo Name="QSPI 1MB Flash" BaseAddr="0x30000000" MaxSize="0x100000" Loader="MARS.FLM" LoaderType="FLASH_ALGO_TYPE_OPEN" AlwaysPresent="0"/>
+   <FlashBankInfo Name="QSPI 2MB Flash" BaseAddr="0x30000000" MaxSize="0x200000" Loader="MARS.FLM" LoaderType="FLASH_ALGO_TYPE_OPEN" AlwaysPresent="1"/>
+  </Device>  
+</DataBase>

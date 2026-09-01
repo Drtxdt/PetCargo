@@ -1,0 +1,18 @@
+{
+  "uart": {"baud": 115200, "data_bits": 8, "parity": "none", "stop_bits": 1},
+  "csk_to_stc": {
+    "header": [165, 90],
+    "checksum": "command_xor_0xff",
+    "commands": {
+      "stop": 1, "forward_0_5m": 2, "backward_0_5m": 3,
+      "left_0_5m": 4, "right_0_5m": 5, "rotate_360deg": 6,
+      "sleep": 7, "wake": 8, "cute": 9, "song": 10,
+      "happiness": 11, "status": 12
+    }
+  },
+  "stc_to_csk": {
+    "header": [90, 165],
+    "checksum": "command_xor_0xff",
+    "commands": {"light_alert_playback": 128}
+  }
+}

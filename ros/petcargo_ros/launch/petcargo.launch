@@ -1,0 +1,30 @@
+<launch>
+  <arg name="start_base_driver" default="true" />
+  <arg name="serial_port" default="/dev/petcargo_stc" />
+  <arg name="dashboard_port" default="8080" />
+  <arg name="web_root" default="" />
+
+  <group if="$(arg start_base_driver)">
+    <include file="$(find ucar_controller)/launch/base_driver.launch" />
+  </group>
+
+  <node pkg="petcargo_ros" type="safety_gateway.py" name="safety_gateway" output="screen">
+    <rosparam command="load" file="$(find petcargo_ros)/config/petcargo.yaml" />
+  </node>
+
+  <node pkg="petcargo_ros" type="motion_executor.py" name="motion_executor" output="screen">
+    <rosparam command="load" file="$(find petcargo_ros)/config/petcargo.yaml" />
+  </node>
+
+  <node pkg="petcargo_ros" type="serial_bridge.py" name="serial_bridge" output="screen">
+    <rosparam command="load" file="$(find petcargo_ros)/config/petcargo.yaml" />
+    <param name="serial_port" value="$(arg serial_port)" />
+  </node>
+
+  <node pkg="petcargo_ros" type="dashboard_server.py" name="dashboard_server" output="screen">
+    <rosparam command="load" file="$(find petcargo_ros)/config/petcargo.yaml" />
+    <param name="dashboard_port" value="$(arg dashboard_port)" />
+    <param name="web_root" value="$(arg web_root)" />
+  </node>
+</launch>
+

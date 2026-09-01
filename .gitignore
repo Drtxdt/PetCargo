@@ -1,0 +1,98 @@
+# -----------------------------------------------------------------------------
+# PetCargo repository ignore rules
+# Keep source code, documentation and final flashable images in Git.
+# -----------------------------------------------------------------------------
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.code-workspace
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Node dependencies and tool caches
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.pnpm-store/
+
+# ROS/catkin generated workspaces
+/build/
+/devel/
+/install/
+/log/
+/logs/
+/.catkin_tools/
+ros/petcargo_ros/build/
+ros/petcargo_ros/devel/
+ros/petcargo_ros/install/
+ros/petcargo_ros/logs/
+
+# SDCC intermediates. Keep the final images and memory reports so a clone can
+# be inspected and flashed without rebuilding first.
+firmware/stc/build/*
+!firmware/stc/build/petcargo.hex
+!firmware/stc/build/petcargo.mem
+firmware/stc_remote/build/*
+!firmware/stc_remote/build/petcargo_remote.hex
+!firmware/stc_remote/build/petcargo_remote.mem
+
+# Embedded compiler/linker intermediates outside the build directories
+*.asm
+*.ihx
+*.lk
+*.lst
+*.map
+*.rel
+*.rst
+*.sym
+*.adb
+*.cdb
+*.omf
+
+# ListenAI/Mars SDK reproducible intermediates. The packaged firmware in
+# mars-sdk/dist remains versionable.
+mars-sdk/build/
+mars-sdk/tools/respack/algo/docs/*.log
+mars-sdk/tools/respack/algo/*.bin
+mars-sdk/tools/respack/*.bin
+
+# Generated inspection exports and temporary working data
+/outputs/
+/tmp/
+*.inspect.ndjson
+
+# Runtime/deployment state and machine-local configuration
+*.pid
+*.sock
+*.retry
+*.local
+.env
+.env.*
+!.env.example
+
+# Diagnostic captures
+*.log
+*.trace
+*.pcap
+*.pcapng

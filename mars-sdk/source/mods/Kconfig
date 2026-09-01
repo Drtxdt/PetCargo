@@ -1,0 +1,280 @@
+################################################################################################
+# Configuration of GPIO
+menuconfig CONFIG_GPIO_ENABLE
+    bool "Enable GPIO Modules"
+    default y
+    select CONFIG_MODULE_DRIVER
+    help
+        Enable GPIO(General Purpose Input/Output) Module
+    if CONFIG_GPIO_ENABLE
+        config CONFIG_GPIO_NAME
+            string "Module Name"
+            default "gpio"
+    endif
+
+menuconfig CONFIG_JTAG_ENABLE
+    bool "Enable JTAG Modules"
+    default y
+
+################################################################################################
+# Configuration of Clocks
+menuconfig CONFIG_CLOCK_ENABLE
+    bool "Enable Clock Module"
+    default y
+    if CONFIG_CLOCK_ENABLE
+        config CONFIG_CLOCK_NAME
+            string "Module Name"
+            default "clock"
+        menuconfig CONFIG_CLOCK_CORE
+            bool "Core"
+            default y
+            choice
+                prompt "CORE" if CONFIG_CLOCK_CORE
+                default CONFIG_CLOCK_CORE_200M
+                config CONFIG_CLOCK_CORE_300M
+                    bool "300MHz"
+                config CONFIG_CLOCK_CORE_240M
+                    bool "240MHz"
+                config CONFIG_CLOCK_CORE_200M
+                    bool "200MHz"
+                config CONFIG_CLOCK_CORE_150M
+                    bool "150MHz"
+                config CONFIG_CLOCK_CORE_133M
+                    bool "133MHz"
+                config CONFIG_CLOCK_CORE_120M
+                    bool "120MHz"
+                config CONFIG_CLOCK_CORE_100M
+                    bool "100MHz"
+            endchoice
+        menuconfig CONFIG_CLOCK_FLASH
+            bool "Flash"
+            default y
+            choice
+                prompt "FLASH" if CONFIG_CLOCK_FLASH
+                default CONFIG_CLOCK_FLASH_100M
+                config CONFIG_CLOCK_FLASH_120M
+                    bool "120M"
+                config CONFIG_CLOCK_FLASH_100M
+                    bool "100M"
+                config CONFIG_CLOCK_FLASH_086M
+                    bool "086M"
+                config CONFIG_CLOCK_FLASH_080M
+                    bool "080M"
+            endchoice
+    endif
+
+################################################################################################
+# Configuration of UART
+menu "Enable UART Modules"
+    choice
+        prompt "Select" if CONFIG_TRACE_ENABLE && CONFIG_UPROT_ENABLE
+        config CONFIG_UART0_FOR_TRACE
+            tristate "TRACE(UART0) / UPROT(UART1)"
+        config CONFIG_UART1_FOR_TRACE
+            tristate "TRACE(UART1) / UPROT(UART0)"
+    endchoice
+
+    menuconfig CONFIG_TRACE_ENABLE
+        bool "Enable UartTrace"
+        default y
+        select CONFIG_MODULE_DRIVER
+        select CONFIG_GPIO_ENABLE
+        help
+            Enable (UART)Trace Module
+    if CONFIG_TRACE_ENABLE
+        config CONFIG_TRACE_NAME
+            string "Module Name"
+            default "trace"
+        choice
+            prompt "Uart Port"
+            default CONFIG_TRACE_UART0
+            config CONFIG_TRACE_UART0
+                bool "UART0"
+                depends on !CONFIG_UPROT_ENABLE || CONFIG_UART0_FOR_TRACE
+            config CONFIG_TRACE_UART1
+                bool "UART1"
+                depends on !CONFIG_UPROT_ENABLE || CONFIG_UART1_FOR_TRACE
+        endchoice
+        config CONFIG_TRACE_BAUD
+            int "Baudrate"
+            default 921600
+        config CONFIG_TRACE_SEND
+            bool "Enable Send Function"
+            default y
+        config CONFIG_TRACE_RECV
+            bool "Enable Receive Function"
+            default y
+    endif
+
+    menuconfig CONFIG_UPROT_ENABLE
+        bool "Enable UartProt"
+        select CONFIG_MODULE_DRIVER
+        select CONFIG_GPIO_ENABLE
+        default y
+        help
+            Enable UPROT(UART Protocol) Module
+    if CONFIG_UPROT_ENABLE
+        config CONFIG_UPROT_NAME
+            string "Module Name"
+            default "uprot"
+        choice
+            prompt "Uart Port"
+            default CONFIG_UPROT_UART1
+            config CONFIG_UPROT_UART0
+                bool "UART0"
+                depends on !CONFIG_TRACE_ENABLE || CONFIG_UART1_FOR_TRACE
+            config CONFIG_UPROT_UART1
+                bool "UART1"
+                depends on !CONFIG_TRACE_ENABLE || CONFIG_UART0_FOR_TRACE
+        endchoice
+        config CONFIG_UPROT_BAUD
+            int "Baudrate"
+            default 9600
+        config CONFIG_UPROT_SEND
+            bool "Enable Send Function"
+            default y
+        config CONFIG_UPROT_RECV
+            bool "Enable Receive Function"
+            default y
+        if CONFIG_UPROT_RECV
+            config CONFIG_UPROT_RXFIFO_DEPTH
+                int "RXFIFO Depth(Bytes)"
+                default 32
+                range 16 128
+            config CONFIG_UPRPT_RXFIFO_BLKCNT
+                int "RXFIFO Block Count"
+                default 2
+                range 2 4
+        endif
+    endif
+endmenu
+
+################################################################################################
+# Configuration of AADC
+menuconfig CONFIG_AADC_ENABLE
+    bool "Enable AADC Modules"
+    default y
+    select CONFIG_MODULE_DRIVER
+    select CONFIG_GPIO_ENABLE
+    help
+        Enable AADC(Audio Analog-to-Digital Converter) Module
+    if CONFIG_AADC_ENABLE
+        config CONFIG_AADC_NAME
+            string "Module Name"
+            default "aadc"
+        config CONFIG_AADC_GAIN
+            int "PGA Gain(dB)"
+            default 30
+            range -12 36
+        choice
+            prompt "Capacitor"
+            help
+                ADC Capacitor Capless Configuration
+                - EX: internal without capacitor, hardware should add capacitor external
+                - OC: internal with capacitor, and hardware don't need to add external
+            default CONFIG_AADC_CAPOC
+            config CONFIG_AADC_CAPOC
+                bool "Internal/OnChip"
+            config CONFIG_AADC_CAPEX
+                bool "External/Hardware"
+        endchoice
+        config CONFIG_AADC_HPF
+            bool "HPF(High Pass Filter)"
+            default y
+        config CONFIG_AADC_DIFF
+            bool "Differential"
+            default y
+            help
+                Input Signal Type:
+                - yes for Differential
+                - no  for Single-Ended
+    endif
+
+################################################################################################
+# Configuration of CLASSD
+menuconfig CONFIG_CLSD_ENABLE
+    bool "Enable CLSD Modules"
+    default y
+    select CONFIG_MODULE_DRIVER
+    select CONFIG_GPIO_ENABLE
+    help
+        Enable ClassD Module
+    if CONFIG_CLSD_ENABLE
+        config CONFIG_CLSD_NAME
+            string "Module Name"
+            default "clsd"
+    endif
+
+################################################################################################
+# Configuration of I2SO
+menuconfig CONFIG_I2SO_ENABLE
+    bool "Enable I2SO Modules"
+    default n
+    select CONFIG_MODULE_DRIVER
+    select CONFIG_GPIO_ENABLE
+    help
+        Enable I2SO(Inter—IC Sound Output) Module
+    if CONFIG_I2SO_ENABLE
+        config CONFIG_I2SO_NAME
+            string "Module Name"
+            default "i2so"
+    endif
+
+################################################################################################
+# Configuration of SPI
+menuconfig CONFIG_SPI_ENABLE
+    bool "Enable SPI Module"
+    default n
+    select CONFIG_MODULE_DRIVER
+    select CONFIG_GPIO_ENABLE
+    help
+        Enable SPI(Serial Peripheral Interface) Module
+    if CONFIG_SPI_ENABLE
+        config CONFIG_SPI_NAME
+            string "Module Name"
+            default "spi"
+    endif
+
+################################################################################################
+# Configuration of FLASH/TNVS
+menuconfig CONFIG_TNVS_ENABLE
+    bool "Enable TNVS Modules"
+    default y
+    select CONFIG_MODULE_DRIVER
+    select CONFIG_MODULE_TINYNVS
+    help
+        Enable TNVS(Tiny Non-Volatile Storage) Module
+    if CONFIG_TNVS_ENABLE
+        config CONFIG_TNVS_NAME
+            string "Module Name"
+            default "tnvs"
+        config CONFIG_TNVS_DEFID
+            int "Default Block ID"
+            default 2
+            range 1 2
+    endif
+
+################################################################################################
+# Configuration of XWDT
+menuconfig CONFIG_XWDT_ENABLE
+    bool "Enable XWDT Modules"
+    default y
+    select CONFIG_MODULE_DRIVER
+    help
+        Enable XWDT(eXtended WatchDog Timer) Module
+    if CONFIG_XWDT_ENABLE
+        config CONFIG_XWDT_NAME
+            string "Module Name"
+            default "xwdt"
+    endif
+
+menuconfig CONFIG_DMAC_ENABLE
+    bool "Enable DMAC Module"
+    default y
+    help
+        Enable DMAC(Direct Memory Acces Copy) Module
+    if CONFIG_DMAC_ENABLE
+        config CONFIG_DMAC_NAME
+            string "Module Name"
+            default "dmac"
+    endif
