@@ -18,6 +18,5 @@ void main(void)
     petcargo_init();
     while (1) {
         petcargo_run_once();
-        hal_ui_refresh_once();
     }
 }

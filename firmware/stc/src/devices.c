@@ -106,10 +106,9 @@ static uint8_t rtc_read_byte(void)
 static uint8_t rtc_read_register(uint8_t command)
 {
     uint8_t value;
-    P1M1 &= (uint8_t)~0xC0; P1M0 &= (uint8_t)~0xC0;
+    P1M1 &= (uint8_t)~0x60; P1M0 &= (uint8_t)~0x60;
     PIN_RTC_RST = 0; PIN_RTC_CLK = 0; PIN_RTC_RST = 1;
     rtc_write_byte(command); value = rtc_read_byte(); PIN_RTC_RST = 0; PIN_RTC_IO = 1;
-    P1M1 |= 0x80; P1M0 &= (uint8_t)~0x80;
     return value;
 }
 static uint8_t bcd_to_binary(uint8_t value) { return (uint8_t)((value >> 4) * 10 + (value & 0x0F)); }
@@ -145,10 +144,21 @@ static uint8_t ee_read_address(uint8_t address)
 }
 static void ee_write_address(uint8_t address, uint8_t value)
 {
-    uint16_t ready;
     ee_start(); if (!ee_write_byte(EEPROM_WRITE)) { ee_stop(); return; }
     ee_write_byte(address); ee_write_byte(value); ee_stop();
-    for (ready = 0; ready < 200; ready++) { ee_start(); if (ee_write_byte(EEPROM_WRITE)) { ee_stop(); break; } ee_stop(); }
+}
+static __xdata uint8_t ee_pending[SETTINGS_SIZE];
+static uint8_t ee_index,ee_base,ee_busy;
+static uint32_t ee_deadline;
+void persistence_service(void)
+{
+    uint8_t ready;
+    if(!ee_busy)return;
+    ee_start();ready=ee_write_byte(EEPROM_WRITE);ee_stop();
+    if(!ready){if((int32_t)(hal_millis()-ee_deadline)>=0)ee_busy=0;return;}
+    ee_write_address(ee_base+ee_index,ee_pending[ee_index]);
+    ee_deadline=hal_millis()+20;
+    if(++ee_index==SETTINGS_SIZE)ee_busy=0;
 }
 static uint8_t settings_crc(const uint8_t *data)
 {
@@ -182,5 +192,7 @@ void persistence_save(__xdata persisted_settings_t *settings)
     data[4] = (uint8_t)settings->feed_count; data[5] = (uint8_t)(settings->feed_count >> 8);
     data[6] = data[7] = data[8] = data[9] = 0;
     data[10] = settings_crc(data); data[11] = (uint8_t)~data[10];
-    for (i = 0; i < SETTINGS_SIZE; i++) ee_write_address((uint8_t)(slot * SETTINGS_SIZE + i), data[i]);
+    /* Coalesce a new feeding count into a new slot; never busy-wait for EEPROM. */
+    for(i=0;i<SETTINGS_SIZE;i++)ee_pending[i]=data[i];
+    ee_index=0;ee_base=slot*SETTINGS_SIZE;ee_busy=1;ee_deadline=hal_millis()+20;
 }

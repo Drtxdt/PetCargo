@@ -20,5 +20,7 @@ enum oled_face {
 
 void oled_init(void);
 void oled_draw_face(uint8_t face);
+void oled_service(void);
+void oled_test_pattern(void);
 
 #endif

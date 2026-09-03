@@ -22,5 +22,6 @@ void adxl345_read(accel_sample_t *sample);
 uint8_t rtc_read_hms(uint8_t *hour, uint8_t *minute, uint8_t *second);
 void persistence_load(__xdata persisted_settings_t *settings);
 void persistence_save(__xdata persisted_settings_t *settings);
+void persistence_service(void);
 
 #endif

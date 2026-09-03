@@ -1,6 +1,7 @@
 #include "stc15.h"
 #include "hal.h"
 #include "config.h"
+#include "runtime.h"
 
 #define ADC_POWER   0x80
 #define ADC_SPEED_L 0x20
@@ -23,9 +24,12 @@ static __xdata uint8_t uart1_rx[UART_RX_SIZE];
 static __xdata uint8_t uart2_rx[UART_RX_SIZE];
 static uint8_t adc_ok;
 static __xdata uint8_t display_buffer[8];
-static uint8_t display_scan;
-static uint8_t ui_phase;
+static volatile __xdata uint8_t display_frames[2][9];
+static volatile __data uint8_t display_front,display_pending,ui_phase;
 static uint8_t led_value;
+static __xdata tx_queue_t tx1,tx2;
+static volatile uint8_t tx_lock;
+static volatile uint16_t uart2_received;
 static uint16_t buzzer_hz;
 static volatile uint8_t ir_command;
 static volatile uint8_t ir_ready;
@@ -42,7 +46,14 @@ static void timer0_reload(void)
 
 void timer0_isr(void) __interrupt (1)
 {
-    timer0_reload();
+    /* No delay, subroutine calls or port-pin readback in the scan ISR. */
+    P0=0;
+    if(ui_phase==0&&display_pending){display_front=display_pending-1;display_pending=0;}
+    /* These compile to ANL/ORL direct (latch RMW), never MOV A,P2. */
+    P2 &= 0xF0;
+    P2 |= ui_phase;
+    P0=display_frames[display_front][ui_phase];
+    if(++ui_phase==9)ui_phase=0;
     system_ms++;
 }
 
@@ -57,7 +68,7 @@ void uart1_isr(void) __interrupt (4)
         if (next == uart1_tail) uart1_lost++;
         else { uart1_rx[uart1_head] = value; uart1_head = next; }
     }
-    if (TI) { TI = 0; uart1_tx_done = 1; }
+    if (TI) { uint8_t value; TI = 0; if(!tx_lock&&tx_next(&tx1,&value)){uart1_tx_done=0;SBUF=value;}else uart1_tx_done=1; }
 }
 
 void uart2_isr(void) __interrupt (8)
@@ -67,11 +78,12 @@ void uart2_isr(void) __interrupt (8)
         uint8_t value;
         S2CON &= (uint8_t)~0x01;
         value = S2BUF;
+        uart2_received++;
         next = (uart2_head + 1u) & (UART_RX_SIZE - 1u);
         if (next == uart2_tail) uart2_lost++;
         else { uart2_rx[uart2_head] = value; uart2_head = next; }
     }
-    if (S2CON & 0x02) { S2CON &= (uint8_t)~0x02; uart2_tx_done = 1; }
+    if (S2CON & 0x02) { uint8_t value; S2CON &= (uint8_t)~0x02; if(!tx_lock&&tx_next(&tx2,&value)){uart2_tx_done=0;S2BUF=value;}else uart2_tx_done=1; }
 }
 
 void pca_isr(void) __interrupt (7)
@@ -113,12 +125,15 @@ static void ir_init(void)
     P_SW1 = (uint8_t)((P_SW1 & (uint8_t)~0x30) | 0x10); /* CCP1_2=P3.6. */
     CCON = 0; CMOD = 0x00; CCAPM1 = 0x11; /* SYSclk/12, falling-edge capture, interrupt. */
     ir_last_capture = 0; ir_bits = 0; ir_bit_count = ir_receiving = ir_ready = 0;
-    CL = 0; CH = 0; IE |= 0x40; CCON |= 0x40;
+    CL = 0; CH = 0; CCON |= 0x40; /* ECCF1 in CCAPM1 enables capture IRQ, not IE.6! */
 }
 
 static void uart_init(void)
 {
     uint16_t reload = (uint16_t)(65536UL - (FOSC / 4UL / PETCARGO_UART_BAUD));
+    P_SW2 &= (uint8_t)~0x01;
+    P_SW1 &= (uint8_t)~0xC0;
+    P1M1 &= (uint8_t)~0x03; P1M0 &= (uint8_t)~0x03; P1 |= 0x03;
     SCON = 0x50;
     S2CON = 0x50;
     T2H = (uint8_t)(reload >> 8);
@@ -127,6 +142,7 @@ static void uart_init(void)
     uart1_head = uart1_tail = uart2_head = uart2_tail = 0;
     uart1_tx_done = uart2_tx_done = 1;
     uart1_lost = uart2_lost = 0;
+    uart2_received=0;
     ES = 1;
     IE2 |= 0x01;
 }
@@ -134,10 +150,11 @@ static void uart_init(void)
 static void timer0_init(void)
 {
     AUXR |= 0x80; /* Timer0 1T. */
-    TMOD = (TMOD & 0xF0) | 0x01;
+    TMOD &= 0xF0; /* STC15 mode 0 is 16-bit AUTO reload. */
     timer0_reload();
     TF0 = 0;
     ET0 = 1;
+    IP |= 0x02; /* Display preempts the lower-priority UART/PCA handlers. */
     TR0 = 1;
 }
 
@@ -145,20 +162,22 @@ void hal_init(void)
 {
     uint8_t i;
     EA = 0;
+    IE=0;IE2=0;IP=0;
     system_ms = 0;
     P0M1 = 0x00; P0M0 = 0xFF; P0 = 0x00;
     P1M1 = 0x00; P1M0 = 0x00; P1 = 0xFF;
     P2M1 = 0x00; P2M0 = 0x08; P2 = 0xF0;
     P3M1 = 0x00; P3M0 = 0x10; P3 |= 0x0C;
-    P4M1 &= (uint8_t)~0x06; P4M0 |= 0x06; P4 &= (uint8_t)~0x06;
-    P5M1 &= (uint8_t)~0x20; P5M0 &= (uint8_t)~0x20; P5 |= 0x20;
+    P4M1 &= (uint8_t)~0x18; P4M0 |= 0x18; P4 &= (uint8_t)~0x18;
+    P5M1 &= (uint8_t)~0x30; P5M0 &= (uint8_t)~0x30; P5 |= 0x30;
     PIN_KEY1 = 1; PIN_KEY2 = 1; PIN_HALL = 1; PIN_VIB = 1;
     PIN_345_SCL = 1; PIN_345_SDA = 1;
     PIN_RTC_CLK = 0; PIN_RTC_IO = 1; PIN_RTC_RST = 0;
     PIN_EE_SDA = 1; PIN_EE_SCL = 1;
     PIN_LED_SEL = 0;
     for (i = 0; i < 8; i++) display_buffer[i] = 0;
-    display_scan = ui_phase = led_value = 0;
+    display_front=display_pending=ui_phase=led_value=0;
+    for(i=0;i<9;i++){display_frames[0][i]=0;display_frames[1][i]=0;}
     ADC_CONTR = ADC_POWER | ADC_SPEED_L;
     adc_ok = 0;
     hal_buzzer_stop();
@@ -171,7 +190,7 @@ void hal_init(void)
 uint32_t hal_millis(void)
 {
     uint32_t value;
-    EA = 0; value = system_ms; EA = 1;
+    uint8_t saved=EA; EA = 0; value = system_ms; EA = saved;
     return value;
 }
 
@@ -228,7 +247,7 @@ int16_t hal_ntc_to_celsius_x10(uint8_t raw)
 
 uint8_t hal_key1_down(void) { return PIN_KEY1 == 0; }
 uint8_t hal_key2_down(void) { return PIN_KEY2 == 0; }
-uint8_t hal_key3_down(uint8_t nav_adc) { return nav_adc < 12; }
+uint8_t hal_key3_down(uint8_t nav_adc) { return nav_is_k3(nav_adc); }
 uint8_t hal_hall_near(void) { return PIN_HALL == 0; }
 uint8_t hal_vibration_active(void) { return PIN_VIB == 0; }
 
@@ -271,23 +290,14 @@ void hal_display_uint(uint8_t position, uint16_t value, uint8_t width)
 
 void hal_led_pattern(uint8_t pattern) { led_value = pattern; }
 
-void hal_ui_refresh_once(void)
+void hal_display_commit(void)
 {
-    P0 = 0;
-    if (ui_phase == 7) {
-        P2 = 0xF8;
-        P0 = led_value;
-        ui_phase = 0;
-    } else {
-        P2 = (uint8_t)(0xF0 | display_scan);
-        P0 = display_buffer[display_scan];
-        display_scan = (display_scan + 1u) & 7u;
-        ui_phase++;
-    }
-    {
-        uint16_t spin = 350;
-        while (spin--) { __asm nop __endasm; }
-    }
+    uint8_t i,back;
+    if(display_pending)return;
+    back=display_front^1;
+    for(i=0;i<8;i++)display_frames[back][i]=display_buffer[i];
+    display_frames[back][8]=led_value;
+    display_pending=back+1;
 }
 
 void hal_buzzer_start(uint16_t hz)
@@ -302,7 +312,7 @@ void hal_buzzer_start(uint16_t hz)
     reload = (uint16_t)(65536UL - counts);
     TR1 = 0; ET1 = 0; INT_CLKO &= (uint8_t)~0x02;
     AUXR |= 0x40;
-    TMOD &= 0x0F;
+    TMOD &= 0x0F; /* STC15 mode 0: 16-bit auto-reload, required by T1CLKO. */
     TH1 = (uint8_t)(reload >> 8); TL1 = (uint8_t)reload; TF1 = 0;
     INT_CLKO |= 0x02; TR1 = 1; buzzer_hz = hz;
 }
@@ -330,27 +340,39 @@ uint8_t hal_uart2_read(uint8_t *value)
 
 void hal_uart1_write(const uint8_t *data, uint8_t length)
 {
-    while (length--) {
-        uint16_t timeout = 60000;
-        uart1_tx_done = 0; SBUF = *data++;
-        while (!uart1_tx_done && --timeout) { }
-    }
+    (void)hal_uart1_send(data,length,0);
+}
+
+uint8_t hal_uart1_send(const uint8_t *data,uint8_t length,uint8_t urgent)
+{
+    uint8_t ok;
+    /* RX interrupts remain live even during frame copies. TX ISR pauses only
+     * its queue consumer while the main loop uses the non-reentrant helpers. */
+    tx_lock=1;
+    ok=tx_enqueue(&tx1,data,length,urgent);
+    tx_lock=0;
+    if(uart1_tx_done)TI=1;
+    if(uart2_tx_done)S2CON|=0x02;
+    return ok;
 }
 
 void hal_uart2_write(const uint8_t *data, uint8_t length)
 {
-    while (length--) {
-        uint16_t timeout = 60000;
-        uart2_tx_done = 0; S2BUF = *data++;
-        while (!uart2_tx_done && --timeout) { }
-    }
+    tx_lock=1;
+    tx_enqueue(&tx2,data,length,0);
+    tx_lock=0;
+    if(uart1_tx_done)TI=1;
+    if(uart2_tx_done)S2CON|=0x02;
 }
 
-uint16_t hal_uart1_overflows(void) { return uart1_lost; }
-uint16_t hal_uart2_overflows(void) { return uart2_lost; }
+uint16_t hal_uart2_received(void){uint16_t v;uint8_t saved=EA;EA=0;v=uart2_received;EA=saved;return v;}
+uint16_t hal_tx_dropped(void){return tx1.dropped+tx2.dropped;}
+
+uint16_t hal_uart1_overflows(void) { uint16_t v;uint8_t saved=EA;EA=0;v=uart1_lost;EA=saved;return v; }
+uint16_t hal_uart2_overflows(void) { uint16_t v;uint8_t saved=EA;EA=0;v=uart2_lost;EA=saved;return v; }
 
 uint8_t hal_ir_read(uint8_t *command)
 {
     if (!ir_ready) return 0;
-    EA = 0; *command = ir_command; ir_ready = 0; EA = 1; return 1;
+    {uint8_t saved=EA;EA = 0; *command = ir_command; ir_ready = 0; EA = saved;} return 1;
 }

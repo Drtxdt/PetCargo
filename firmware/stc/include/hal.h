@@ -29,7 +29,7 @@ void hal_display_clear(void);
 void hal_display_char(uint8_t position, char value);
 void hal_display_uint(uint8_t position, uint16_t value, uint8_t width);
 void hal_led_pattern(uint8_t pattern);
-void hal_ui_refresh_once(void);
+void hal_display_commit(void);
 
 void hal_buzzer_start(uint16_t hz);
 void hal_buzzer_stop(void);
@@ -37,9 +37,12 @@ void hal_buzzer_stop(void);
 uint8_t hal_uart1_read(uint8_t *value);
 uint8_t hal_uart2_read(uint8_t *value);
 void hal_uart1_write(const uint8_t *data, uint8_t length);
+uint8_t hal_uart1_send(const uint8_t *data,uint8_t length,uint8_t urgent);
 void hal_uart2_write(const uint8_t *data, uint8_t length);
 uint16_t hal_uart1_overflows(void);
 uint16_t hal_uart2_overflows(void);
+uint16_t hal_uart2_received(void);
+uint16_t hal_tx_dropped(void);
 
 uint8_t hal_ir_read(uint8_t *command);
 

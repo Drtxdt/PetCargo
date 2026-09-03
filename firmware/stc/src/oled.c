@@ -48,12 +48,16 @@ static const uint16_t __code sprites[12][16] = {
     {0x8001,0xC003,0x6006,0x300C,0x1818,0x0C30,0x0660,0x03C0,0x03C0,0x0660,0x0C30,0x1818,0x300C,0x6006,0xC003,0x8001}
 };
 
-static uint8_t face_pixel(uint8_t face, uint8_t x, uint8_t y)
+static uint8_t requested_face,active_face,draw_page,draw_x,drawing;
+static uint8_t face_column(uint8_t face, uint8_t x, uint8_t page)
 {
-    uint8_t sx, sy;
+    uint16_t mask;uint8_t value=0;
+    if(face==12)return (x==0||x==127)?0xFF:((page==0)?0x01:((page==7)?0x80:((x&8)?0xAA:0x55)));
     if (face >= 12 || x < 32 || x >= 96) return 0;
-    sx = (uint8_t)((x - 32) >> 2); sy = y >> 2;
-    return (sprites[face][sy] & (uint16_t)(0x8000u >> sx)) != 0;
+    mask=(uint16_t)(0x8000u>>((x-32)>>2));
+    if(sprites[face][page*2]&mask)value=0x0F;
+    if(sprites[face][page*2+1]&mask)value|=0xF0;
+    return value;
 }
 
 void oled_init(void)
@@ -68,22 +72,24 @@ void oled_init(void)
     oled_command(0xD3); oled_command(0x00); oled_command(0xD5); oled_command(0x80);
     oled_command(0xD9); oled_command(0xF1); oled_command(0xDA); oled_command(0x12);
     oled_command(0xDB); oled_command(0x40); oled_command(0x8D); oled_command(0x14); oled_command(0xAF);
-    oled_draw_face(FACE_SMUG);
+    active_face=0xFF;drawing=0;oled_draw_face(FACE_SMUG);
 }
 
 void oled_draw_face(uint8_t face)
 {
-    uint8_t page, x, bit, value;
+    requested_face=face;
+}
+void oled_test_pattern(void){requested_face=12;}
+void oled_service(void)
+{
+    uint8_t i;
 #if !PETCARGO_OLED_ENABLED
-    (void)face; return;
+    return;
 #endif
-    for (page = 0; page < 8; page++) {
-        oled_position(page, 0); oled_start(); oled_write_byte(OLED_ADDRESS); oled_write_byte(0x40);
-        for (x = 0; x < 128; x++) {
-            value = 0;
-            for (bit = 0; bit < 8; bit++) if (face_pixel(face, x, (uint8_t)(page * 8 + bit))) value |= (uint8_t)(1u << bit);
-            oled_write_byte(value);
-        }
-        oled_stop();
-    }
+    if(!drawing){if(active_face==requested_face)return;active_face=requested_face;draw_page=draw_x=0;drawing=1;}
+    if(draw_x==0)oled_position(draw_page,0);
+    oled_start();oled_write_byte(OLED_ADDRESS);oled_write_byte(0x40);
+    for(i=0;i<16;i++)oled_write_byte(face_column(active_face,draw_x++,draw_page));
+    oled_stop();
+    if(draw_x==128){draw_x=0;if(++draw_page==8)drawing=0;}
 }

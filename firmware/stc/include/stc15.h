@@ -26,6 +26,8 @@ __sfr __at (0x9B) S2BUF;
 __sfr __at (0xA0) P2;
 __sfr __at (0xA2) P_SW1;
 __sfr __at (0xA8) IE;
+__sfr __at (0xB8) IP;
+__sfr __at (0xBA) P_SW2;
 __sfr __at (0xAF) IE2;
 __sfr __at (0xB0) P3;
 __sfr __at (0xB1) P3M1;
@@ -70,12 +72,12 @@ __sbit __at (0xB3) PIN_KEY2;    /* P3.3, physical K2 */
 __sbit __at (0xB4) PIN_BEEP;    /* P3.4 / T1CLKO */
 __sbit __at (0x92) PIN_HALL;    /* P1.2, A3144 active low */
 __sbit __at (0x95) PIN_RTC_CLK; /* P1.5 */
-__sbit __at (0x96) PIN_RTC_IO;  /* P1.6 */
-__sbit __at (0x97) PIN_RTC_RST; /* P1.7, also KEY3/navigation ADC */
+__sbit __at (0xCC) PIN_RTC_IO;  /* P5.4, ISP must select GPIO, not RESET */
+__sbit __at (0x96) PIN_RTC_RST; /* P1.6. P1.7 is exclusively navigation ADC. */
 __sbit __at (0xC0) PIN_EE_SDA;  /* P4.0 */
 __sbit __at (0xCD) PIN_EE_SCL;  /* P5.5 */
-__sbit __at (0xC1) PIN_SM_S1;   /* P4.1 -> ULN2003 -> SM S1 */
-__sbit __at (0xC2) PIN_SM_S2;   /* P4.2 -> ULN2003 -> SM S2 */
+__sbit __at (0xC4) PIN_SM_S1;   /* P4.4 -> ULN2003 -> SM S1 */
+__sbit __at (0xC3) PIN_SM_S2;   /* P4.3 -> ULN2003 -> SM S2 */
 __sbit __at (0xB6) PIN_IR_RX;    /* P3.6 / CCP1_2, TSOP34840 */
 __sbit __at (0xB7) PIN_IR_TX;    /* P3.7 / CCP2_2, ULN2003 IR LED */
 

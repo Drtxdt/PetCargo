@@ -27,12 +27,16 @@ EXT 丝印从功能上为 `VCC、P1.1、P1.0、GND`。以板上丝印为准，�
 |---|---|---|
 | VCC | EXT VCC | OLED 由 STC 板供电 |
 | GND | EXT GND | 共地 |
-| SCL/SCK | SM S1 | P4.1 → ULN2003 反相开集电极 |
-| SDA | SM S2 | P4.2 → ULN2003 反相开集电极 |
+| SCL/SCK | SM S1 | P4.4 → ULN2003 反相开集电极 |
+| SDA | SM S2 | P4.3 → ULN2003 反相开集电极 |
 
 SM 插座丝印顺序为 `VCC、S1、S2、S3、S4`。OLED 不接 SM VCC，便于把数据线和供电线分开核对。
 
 固件已经补偿 ULN2003 反相：MCU 输出 0 表示释放总线，输出 1 表示拉低。OLED ACK 被有意忽略。
+
+板载 RTC：SCLK=P1.5、CE=P1.6、IO=P5.4；**STC-ISP 的 P5.4 选普通 I/O，不选复位脚**。K3/导航 ADC 独占 P1.7，不能被 RTC 驱动改写。原文档把 S1/S2 写成 P4.1/P4.2 属于错误映射，现已按原理图修正。
+
+杜邦线自身不分方向，端点必须交叉：CSK 的 **A11→STC P1.0**、**A12←STC P1.1**。不要用模块另一排标着 TX/RX/VCC 的日志串口替代 A11/A12。
 
 ## USB
 
@@ -47,4 +51,3 @@ SM 插座丝印顺序为 `VCC、S1、S2、S3、S4`。OLED 不接 SM VCC，便于
 3. OLED 冷启动失败时重复 3 次；确认线序仍失败则将 `firmware/stc/include/config.h` 的 `PETCARGO_OLED_ENABLED` 改为 0 后重新编译。
 4. 再接 CSK 的 TX、RX、GND和独立 USB。
 5. 最后把 STC USB 接小车，并验证 `/dev/petcargo_stc`。
-

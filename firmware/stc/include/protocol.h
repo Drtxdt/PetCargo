@@ -44,7 +44,7 @@ extern __xdata protocol_frame_t protocol_rx_frame;
 
 void protocol_init(void);
 uint8_t protocol_poll(void);
-void protocol_send(uint8_t type, const uint8_t *payload, uint8_t length);
+uint8_t protocol_send(uint8_t type, const uint8_t *payload, uint8_t length);
 void protocol_send_ack(uint8_t type, uint8_t sequence, uint8_t code);
 uint16_t protocol_crc16(const uint8_t *data, uint8_t length);
 uint16_t protocol_crc_errors(void);

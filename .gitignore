@@ -53,6 +53,8 @@ ros/petcargo_ros/logs/
 firmware/stc/build/*
 !firmware/stc/build/petcargo.hex
 !firmware/stc/build/petcargo.mem
+!firmware/stc/build/petcargo_diagnostic.hex
+!firmware/stc/build/petcargo_diagnostic.mem
 firmware/stc_remote/build/*
 !firmware/stc_remote/build/petcargo_remote.hex
 !firmware/stc_remote/build/petcargo_remote.mem
@@ -95,3 +97,4 @@ mars-sdk/tools/respack/*.bin
 *.trace
 *.pcap
 *.pcapng
+music

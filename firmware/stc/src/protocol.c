@@ -62,11 +62,11 @@ int32_t protocol_get_i32(const uint8_t *source)
                      ((uint32_t)source[2] << 16) | ((uint32_t)source[3] << 24));
 }
 
-void protocol_send(uint8_t type, const uint8_t *payload, uint8_t length)
+uint8_t protocol_send(uint8_t type, const uint8_t *payload, uint8_t length)
 {
     uint8_t i;
     uint16_t crc;
-    if (length > PROTOCOL_MAX_PAYLOAD) return;
+    if (length > PROTOCOL_MAX_PAYLOAD) return 0;
     tx_buffer[0] = 0xAA; tx_buffer[1] = 0x55;
     tx_buffer[2] = PROTOCOL_VERSION; tx_buffer[3] = type;
     tx_buffer[4] = ++tx_sequence; tx_buffer[5] = length;
@@ -74,7 +74,7 @@ void protocol_send(uint8_t type, const uint8_t *payload, uint8_t length)
     crc = protocol_crc16(&tx_buffer[2], (uint8_t)(4 + length));
     tx_buffer[6 + length] = (uint8_t)crc;
     tx_buffer[7 + length] = (uint8_t)(crc >> 8);
-    hal_uart1_write(tx_buffer, (uint8_t)(8 + length));
+    return hal_uart1_send(tx_buffer,(uint8_t)(8+length),type==MSG_STOP);
 }
 
 void protocol_send_ack(uint8_t type, uint8_t sequence, uint8_t code)
