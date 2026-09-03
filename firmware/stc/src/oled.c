@@ -8,20 +8,28 @@
 /* ULN2003 inverts the MCU output. 0 releases the SM line, 1 pulls it low. */
 static void oled_sda(uint8_t high) { PIN_SM_S2 = high ? 0 : 1; }
 static void oled_scl(uint8_t high) { PIN_SM_S1 = high ? 0 : 1; }
-static void oled_delay(void) { hal_delay_us(3); }
+/* Explicit setup/hold on BOTH clock phases: ULN2003 release is not a
+ * push-pull rising edge. Do not rely on SDCC function-call overhead. */
+static void oled_delay(void) { hal_delay_us(5); }
 static void oled_start(void)
 {
-    oled_sda(1); oled_scl(1); oled_delay(); oled_sda(0); oled_delay(); oled_scl(0);
+    oled_scl(0); oled_delay(); oled_sda(1); oled_delay();
+    oled_scl(1); oled_delay(); oled_sda(0); oled_delay(); oled_scl(0); oled_delay();
 }
 static void oled_stop(void)
 {
-    oled_sda(0); oled_scl(1); oled_delay(); oled_sda(1); oled_delay();
+    oled_scl(0); oled_delay(); oled_sda(0); oled_delay();
+    oled_scl(1); oled_delay(); oled_sda(1); oled_delay();
 }
 static void oled_write_byte(uint8_t value)
 {
     uint8_t i;
-    for (i = 0; i < 8; i++) { oled_sda(value & 0x80); oled_scl(1); oled_delay(); oled_scl(0); value <<= 1; }
-    oled_sda(1); oled_scl(1); oled_delay(); oled_scl(0); /* ACK intentionally ignored. */
+    for (i = 0; i < 8; i++) {
+        oled_sda(value & 0x80); oled_delay();
+        oled_scl(1); oled_delay(); oled_scl(0); oled_delay(); value <<= 1;
+    }
+    oled_sda(1); oled_delay(); oled_scl(1); oled_delay();
+    oled_scl(0); oled_delay(); /* ACK cannot be read through ULN2003. */
 }
 static void oled_command(uint8_t value)
 {
@@ -49,6 +57,15 @@ static const uint16_t __code sprites[12][16] = {
 };
 
 static uint8_t requested_face,active_face,draw_page,draw_x,drawing;
+static uint8_t init_index,ready;
+static uint32_t power_ready_ms;
+/* SSD1306 128x64, internal charge pump, page addressing. Explicitly reset
+ * start line, contrast and RAM-display mode rather than relying on POR. */
+static const uint8_t __code init_commands[]={
+    0xAE,0xD5,0x80,0xA8,0x3F,0xD3,0x00,0x40,
+    0x8D,0x14,0x20,0x02,0xA1,0xC8,0xDA,0x12,
+    0x81,0x7F,0xD9,0xF1,0xDB,0x40,0xA4,0xA6
+};
 static uint8_t face_column(uint8_t face, uint8_t x, uint8_t page)
 {
     uint16_t mask;uint8_t value=0;
@@ -62,16 +79,11 @@ static uint8_t face_column(uint8_t face, uint8_t x, uint8_t page)
 
 void oled_init(void)
 {
-    uint16_t wait = 25000;
 #if !PETCARGO_OLED_ENABLED
     return;
 #endif
-    oled_sda(1); oled_scl(1); while (wait--) { __asm nop __endasm; }
-    oled_command(0xAE); oled_command(0x20); oled_command(0x02); oled_command(0xC8);
-    oled_command(0xA1); oled_command(0xA6); oled_command(0xA8); oled_command(0x3F);
-    oled_command(0xD3); oled_command(0x00); oled_command(0xD5); oled_command(0x80);
-    oled_command(0xD9); oled_command(0xF1); oled_command(0xDA); oled_command(0x12);
-    oled_command(0xDB); oled_command(0x40); oled_command(0x8D); oled_command(0x14); oled_command(0xAF);
+    oled_sda(1); oled_scl(1);
+    power_ready_ms=hal_millis()+200;init_index=0;ready=0;
     active_face=0xFF;drawing=0;oled_draw_face(FACE_SMUG);
 }
 
@@ -86,10 +98,22 @@ void oled_service(void)
 #if !PETCARGO_OLED_ENABLED
     return;
 #endif
+    if(!ready){
+        if((int32_t)(hal_millis()-power_ready_ms)<0)return;
+        if(init_index==0){
+            /* Release a slave left mid-byte by an MCU-only reset. */
+            oled_sda(1);
+            for(i=0;i<9;i++){oled_scl(0);oled_delay();oled_scl(1);oled_delay();}
+            oled_stop();
+        }
+        oled_command(init_commands[init_index++]);
+        if(init_index==sizeof(init_commands))ready=1;
+        return;
+    }
     if(!drawing){if(active_face==requested_face)return;active_face=requested_face;draw_page=draw_x=0;drawing=1;}
     if(draw_x==0)oled_position(draw_page,0);
     oled_start();oled_write_byte(OLED_ADDRESS);oled_write_byte(0x40);
     for(i=0;i<16;i++)oled_write_byte(face_column(active_face,draw_x++,draw_page));
     oled_stop();
-    if(draw_x==128){draw_x=0;if(++draw_page==8)drawing=0;}
+    if(draw_x==128){draw_x=0;if(++draw_page==8){drawing=0;oled_command(0xAF);}}
 }
