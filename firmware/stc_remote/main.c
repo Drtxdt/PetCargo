@@ -15,8 +15,11 @@ void timer0_isr(void)__interrupt(1){
     if(++phase==9)phase=0;system_ms++;
 }
 static uint8_t adc_nav(void){
-    uint16_t timeout=5000;adc_valid=0;ADC_CONTR=0xA7;
-    __asm nop __endasm;__asm nop __endasm;ADC_CONTR|=0x08;
+    uint16_t timeout=5000;uint32_t selected_at;adc_valid=0;ADC_CONTR=0xA7;
+    /* The resistor ladder needs acquisition time after selecting ADC7.  Match
+       the course BSP's 1 ms settling delay; the display ISR keeps running. */
+    selected_at=millis();while((int32_t)(millis()-selected_at)<1){}
+    ADC_CONTR|=0x08;
     while(!(ADC_CONTR&0x10)&&--timeout){}
     if(!timeout)return 255;ADC_CONTR&=(uint8_t)~0x10;adc_valid=1;return ADC_RES;
 }

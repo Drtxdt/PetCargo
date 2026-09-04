@@ -5,12 +5,14 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
   rospy
+  sensor_msgs
   std_msgs
+  tf2_ros
 )
 
 catkin_python_setup()
 
-catkin_package(CATKIN_DEPENDS geometry_msgs nav_msgs rospy std_msgs)
+catkin_package(CATKIN_DEPENDS geometry_msgs nav_msgs rospy sensor_msgs std_msgs tf2_ros)
 
 catkin_install_python(PROGRAMS
   scripts/serial_bridge.py
@@ -23,4 +25,3 @@ catkin_install_python(PROGRAMS
 install(DIRECTORY launch config udev
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-

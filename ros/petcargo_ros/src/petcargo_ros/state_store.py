@@ -14,6 +14,7 @@ class DashboardState:
         self._state = {
             "serial_connected": False,
             "motion": {"status": "idle"},
+            "lidar": {"online": False, "reason": "waiting_for_scan", "phase": "track"},
             "safety": {"latched": False, "reason": "startup"},
             "telemetry": {
                 "light_raw": 0,

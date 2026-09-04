@@ -18,6 +18,7 @@ from petcargo_ros.protocol import (
     MessageType,
     MotionRequest,
     MotionResult,
+    MotionSourceTracker,
     Telemetry,
     encode_frame,
     telemetry_to_dict,
@@ -48,6 +49,8 @@ class SerialBridge:
         self.last_rx = 0.0
         self.connected = False
         self.pending_results = []
+        self.motion_source = MotionSourceTracker()
+        self.safety_latched = None
 
         self.telemetry_pub = rospy.Publisher("/petcargo/telemetry", String, queue_size=10)
         self.event_pub = rospy.Publisher("/petcargo/events", String, queue_size=30)
@@ -61,6 +64,7 @@ class SerialBridge:
 
         rospy.Subscriber("/petcargo/motion_result", String, self.on_motion_result, queue_size=10)
         rospy.Subscriber("/petcargo/safety_set", Bool, self.on_safety_set, queue_size=4)
+        rospy.Subscriber("/petcargo/safety_state", String, self.on_safety_state, queue_size=4)
         self.connected_pub.publish(False)
 
     def next_seq(self) -> int:
@@ -127,7 +131,19 @@ class SerialBridge:
             rospy.logwarn("Invalid motion result: %s", exc)
 
     def on_safety_set(self, message: Bool) -> None:
+        self.safety_latched = bool(message.data)
         self.send(MessageType.STOP, bytes((1 if message.data else 0,)))
+
+    def on_safety_state(self, message: String) -> None:
+        try:
+            value = bool(json.loads(message.data).get("latched", False))
+        except (AttributeError, TypeError, json.JSONDecodeError):
+            rospy.logwarn_throttle(2.0, "Invalid PetCargo safety state")
+            return
+        changed = self.safety_latched is None or value != self.safety_latched
+        self.safety_latched = value
+        if changed and self.connected:
+            self.send(MessageType.STOP, bytes((1 if value else 0,)))
 
     def handle_frame(self, frame: Frame) -> None:
         if frame.version != 2:
@@ -164,9 +180,13 @@ class SerialBridge:
                     "timestamp": time.time(),
                 }
                 self.event_pub.publish(json.dumps(event, ensure_ascii=False))
+                # Firmware emits BRIGHT_LIGHT immediately before its escape request.
+                self.motion_source.note_event(event_code, time.monotonic())
             elif kind == MessageType.MOTION_REQUEST:
                 request = MotionRequest.unpack(frame.payload)
-                self.motion_pub.publish(json.dumps(request.__dict__))
+                value = dict(request.__dict__)
+                value["source"] = self.motion_source.consume(time.monotonic())
+                self.motion_pub.publish(json.dumps(value))
             elif kind == MessageType.JOG_REQUEST:
                 request = JogRequest.unpack(frame.payload)
                 self.jog_pub.publish(json.dumps(request.__dict__))
@@ -176,7 +196,14 @@ class SerialBridge:
                     self.cancel_pub.publish()
                 else:
                     self.safety_pub.publish(bool(stop_code))
-            elif kind in (MessageType.HELLO, MessageType.HEARTBEAT):
+            elif kind == MessageType.HELLO:
+                self.send(MessageType.ACK, bytes((frame.msg_type, frame.seq, 0)))
+                # A rebooted STC starts with emergency=False while ROS may still
+                # be latched.  Synchronize the authoritative ROS state so K3 can
+                # visibly and deliberately release it instead of failing silently.
+                if self.safety_latched is not None:
+                    self.send(MessageType.STOP, bytes((1 if self.safety_latched else 0,)))
+            elif kind == MessageType.HEARTBEAT:
                 self.send(MessageType.ACK, bytes((frame.msg_type, frame.seq, 0)))
         except (ValueError, struct.error) as exc:
             rospy.logwarn("Dropped malformed STC frame type 0x%02X: %s", frame.msg_type, exc)

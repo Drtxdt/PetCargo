@@ -4,7 +4,9 @@
 int main(void){
     uint16_t value;remote_keys_t state={0};uint8_t frame[5]={0xA5,0x5A,2,4,9};
     for(value=0;value<256;value++)
-        assert(remote_decode((uint8_t)value)==(value<=28?5:value<=76?4:value<=116?2:value<=156?5:value<=188?3:value<=228?1:0));
+        assert(remote_decode((uint8_t)value)==(value<=19?5:value<=57?4:value<=94?2:value<=131?5:value<=167?3:value<=220?1:0));
+    assert(remote_decode(0)==5&&remote_decode(38)==4&&remote_decode(76)==2);
+    assert(remote_decode(113)==5&&remote_decode(150)==3&&remote_decode(185)==1&&remote_decode(255)==0);
     remote_sample(&state,200,1,0);assert(remote_next(&state,29)==0xFF);
     remote_sample(&state,200,1,30);assert(state.stable==1&&remote_next(&state,30)==1);
     assert(remote_next(&state,129)==0xFF&&remote_next(&state,130)==1);

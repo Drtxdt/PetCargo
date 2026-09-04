@@ -40,8 +40,8 @@ class SafetyGateway:
 
     def on_command(self, message: Twist) -> None:
         safe = Twist()
-        safe.linear.x = self.clamp(message.linear.x, 0.18)
-        safe.linear.y = self.clamp(message.linear.y, 0.18)
+        safe.linear.x = self.clamp(message.linear.x, 0.30)
+        safe.linear.y = self.clamp(message.linear.y, 0.30)
         safe.angular.z = self.clamp(message.angular.z, 0.5)
         self.command = safe
         self.command_time = time.monotonic()
@@ -73,6 +73,8 @@ class SafetyGateway:
         )
 
     def on_timer(self, _event) -> None:
+        if rospy.is_shutdown():
+            return
         now = time.monotonic()
         if self.latched:
             self.reason = "emergency_stop"
@@ -86,9 +88,14 @@ class SafetyGateway:
         else:
             self.reason = "moving"
             output = self.command
-        self.output_pub.publish(output)
-        if self.reason != self.published_reason:
-            self.publish_state()
+        try:
+            self.output_pub.publish(output)
+            if self.reason != self.published_reason:
+                self.publish_state()
+        except rospy.ROSException:
+            # A timer callback may already be queued while Ctrl-C closes topics.
+            if not rospy.is_shutdown():
+                raise
 
 
 if __name__ == "__main__":

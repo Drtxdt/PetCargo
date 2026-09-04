@@ -42,6 +42,8 @@ class MotionResultCode(enum.IntEnum):
     ODOM_ERROR = 3
     REJECTED_BUSY = 4
     REJECTED_SAFETY = 5
+    LIDAR_UNAVAILABLE = 6
+    OBSTACLE_BLOCKED = 7
 
 
 class EventCode(enum.IntEnum):
@@ -53,6 +55,26 @@ class EventCode(enum.IntEnum):
     BUTTON = 6
     FAULT = 8
     REMOTE = 9
+
+
+class MotionSourceTracker:
+    """Tag the motion request that immediately follows a bright-light event."""
+
+    def __init__(self, window_seconds: float = 1.0) -> None:
+        self.window_seconds = float(window_seconds)
+        self.pending = False
+        self.deadline = 0.0
+
+    def note_event(self, event_code: int, now: float) -> None:
+        if int(event_code) == int(EventCode.BRIGHT_LIGHT):
+            self.pending = True
+            self.deadline = float(now) + self.window_seconds
+
+    def consume(self, now: float) -> str:
+        source = "bright_light" if self.pending and float(now) <= self.deadline else "voice"
+        self.pending = False
+        self.deadline = 0.0
+        return source
 
 
 @dataclass(frozen=True)

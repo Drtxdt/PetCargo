@@ -9,11 +9,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "ros", "petcargo_ros", "src"))
 
 from petcargo_ros.protocol import (  # noqa: E402
+    EventCode,
     Frame,
     FrameParser,
     JogRequest,
     MessageType,
     MotionRequest,
+    MotionSourceTracker,
     Telemetry,
     crc16_ccitt,
     encode_frame,
@@ -21,6 +23,15 @@ from petcargo_ros.protocol import (  # noqa: E402
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_bright_light_source_is_single_use_and_expires(self):
+        tracker = MotionSourceTracker(window_seconds=1.0)
+        self.assertEqual(tracker.consume(0.0), "voice")
+        tracker.note_event(EventCode.BRIGHT_LIGHT, 10.0)
+        self.assertEqual(tracker.consume(10.5), "bright_light")
+        self.assertEqual(tracker.consume(10.6), "voice")
+        tracker.note_event(EventCode.BRIGHT_LIGHT, 20.0)
+        self.assertEqual(tracker.consume(21.1), "voice")
+
     def test_known_crc_vector(self):
         self.assertEqual(crc16_ccitt(b"123456789"), 0x29B1)
 

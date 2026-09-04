@@ -45,7 +45,8 @@ static void request_motion(uint8_t kind,int16_t distance,int32_t angle,uint16_t 
     app.motion_id++;if(!app.motion_id)app.motion_id=1;protocol_put_u16(&p[0],app.motion_id);p[2]=kind;
     protocol_put_i16(&p[3],distance);protocol_put_i32(&p[5],angle);protocol_put_u16(&p[9],speed);
     if(!protocol_send(MSG_MOTION_REQUEST,p,11))return;app.motion_active=1;app.last_motion_id=app.motion_id;app.motion_face=face;
-    motion_deadline=hal_millis()+(kind==MOTION_ROTATE?16000UL:8000UL);
+    /* Lidar detours can add 1.1 m of closed-loop travel before the result returns. */
+    motion_deadline=hal_millis()+(kind==MOTION_ROTATE?16000UL:20000UL);
 }
 
 static void emergency_set(uint8_t engaged)

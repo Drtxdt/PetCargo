@@ -43,6 +43,7 @@ Flags：bit0睡眠、bit1急停、bit4传感器故障、bit5主板红外输入�
 - `kind=3`：横向移动，正值向左、负值向右。
 - `direction=0/1/2/3/4`：停止/前/后/左/右点动。
 - 固定动作目标为500毫米；STC遥控点动速度120毫米每秒，租约300毫秒。
+- 动作结果新增 `6=LIDAR_UNAVAILABLE`、`7=OBSTACLE_BLOCKED`；负载格式和协议版本不变。
 
 ## CSK ↔ STC
 
@@ -56,15 +57,17 @@ CSK命令帧为 `A5 5A COMMAND (COMMAND XOR FF)`；STC播报触发帧为 `5A A5 
 | `/petcargo/events` | std_msgs/String | JSON事件 |
 | `/petcargo/motion_request` | std_msgs/String | 固定距离动作 |
 | `/petcargo/jog_request` | std_msgs/String | STC点动与租约，source区分主板和Windows桥 |
-
-Windows遥控通过车载网页服务`POST /api/jog`进入上述话题。JSON字段为`direction`（0停止、1前、2后、3左、4右）、`speed_mm_s`（60–180）和`lease_ms`（100–500）；服务端固定标记`source=windows_stc`。接口只用于可信局域网。
 | `/petcargo/motion_result` | std_msgs/String | 动作结果 |
+| `/petcargo/lidar_status` | std_msgs/String | 雷达在线、净空、避障阶段与选边状态 |
 | `/petcargo/cmd_vel_request` | geometry_msgs/Twist | 安全网内部速度 |
 | `/petcargo/safety_set` | std_msgs/Bool | 锁定或解除急停 |
 | `/petcargo/cancel_motion` | std_msgs/Empty | 只取消当前动作 |
 | `/petcargo/serial_connected` | std_msgs/Bool | STC链路状态 |
 | `/cmd_vel` | geometry_msgs/Twist | 仅safety_gateway发布 |
 
+Windows遥控通过车载网页服务`POST /api/jog`进入上述话题。JSON字段为`direction`（0停止、1前、2后、3左、4右）、`speed_mm_s`（60–180）和`lease_ms`（100–500）；服务端固定标记`source=windows_stc`。接口只用于可信局域网。
+
 - `GET /api/state`
 - `GET /api/events`
 - `POST /api/stop`，负载为 `{"engaged":true}` 或 `false`
+- `POST /api/jog`，负载为方向、速度和租约

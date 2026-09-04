@@ -1,8 +1,10 @@
 #include "remote.h"
 uint8_t remote_decode(uint8_t v){
-    if(v<=28)return CMD_STOP;if(v<=76)return CMD_RIGHT;
-    if(v<=116)return CMD_BACKWARD;if(v<=156)return CMD_STOP;
-    if(v<=188)return CMD_LEFT;if(v<=228)return CMD_FORWARD;return CMD_IDLE;
+    /* Midpoints of the board's measured ADC values:
+       K3=0, right=38, down=76, centre=113, left=150, up=185, released=255. */
+    if(v<=19)return CMD_STOP;if(v<=57)return CMD_RIGHT;
+    if(v<=94)return CMD_BACKWARD;if(v<=131)return CMD_STOP;
+    if(v<=167)return CMD_LEFT;if(v<=220)return CMD_FORWARD;return CMD_IDLE;
 }
 void remote_sample(remote_keys_t *s,uint8_t adc,uint8_t valid,uint32_t now){
     uint8_t command=remote_decode(adc);

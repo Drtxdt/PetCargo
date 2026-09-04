@@ -7,7 +7,8 @@ PetCargo 是一个基于 STC-B 学习板、CSK5062 离线语音模组和 uCar RO
 1. 手电筒照射光敏传感器。
 2. STC 更新快乐/恐惧情绪并输出 OLED、LED、数码管和蜂鸣器反馈。
 3. STC 通过 USB 串口请求小车低速后退 0.5 m。
-4. ROS 使用里程计闭环执行动作，网页同步显示状态并提供急停。
+4. ROS 使用里程计闭环执行动作，并用激光雷达完成局部三段式绕障。
+5. 网页同步显示雷达净空、避障阶段和急停状态。
 
 ## 仓库结构
 
@@ -48,12 +49,18 @@ cd firmware\stc
 /home/ucar/PetCargo/tools/run_robot.sh
 ```
 
-浏览器打开 `http://小车IP:8080`。正式演示前必须阅读 `docs/wiring.md` 和 `docs/demo_script.md`。
+浏览器打开 `http://192.168.1.6:8080`。正式演示前必须阅读 `docs/wiring.md` 和 `docs/demo_script.md`。
+
+启动脚本默认同时启动雷达；若雷达已经由其他ROS启动，把第四个参数设为`false`：
+
+```bash
+/home/ucar/PetCargo/tools/run_robot.sh /home/ucar/PetCargo /home/ucar/2026-xunfei-race/devel/setup.bash /home/ucar/petcargo_ws false
+```
 
 ## 安全约束
 
 - CSK5062 独立 USB 供电，禁止把 CSK 的 VCC 接到 STC EXT VCC。
 - CSK 与 STC 只连接交叉 TX/RX 和 GND。
-- 四向运动演示前清空周围至少 1 m 通道。
+- 四向运动使用10厘米车壳净空防撞；首次测试仍需清空周围至少1米并准备随时急停。
 - K3和网页急停会锁定底盘；语音“停下来”、遥控板松开、Windows串口断开和网络租约超时会归零。
 - 不启动比赛任务节点；PetCargo 的 `safety_gateway` 是唯一 `/cmd_vel` 发布者。

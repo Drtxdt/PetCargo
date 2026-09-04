@@ -1,11 +1,16 @@
 <launch>
   <arg name="start_base_driver" default="true" />
+  <arg name="start_lidar" default="true" />
   <arg name="serial_port" default="/dev/petcargo_stc" />
   <arg name="dashboard_port" default="8080" />
   <arg name="web_root" default="" />
 
   <group if="$(arg start_base_driver)">
     <include file="$(find ucar_controller)/launch/base_driver.launch" />
+  </group>
+
+  <group if="$(arg start_lidar)">
+    <include file="$(find ydlidar)/launch/ydlidar.launch" />
   </group>
 
   <node pkg="petcargo_ros" type="safety_gateway.py" name="safety_gateway" output="screen">
@@ -27,4 +32,3 @@
     <param name="web_root" value="$(arg web_root)" />
   </node>
 </launch>
-

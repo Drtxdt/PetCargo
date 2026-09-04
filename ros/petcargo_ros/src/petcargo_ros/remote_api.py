@@ -11,7 +11,7 @@ def normalize_jog(value):
             raise TypeError
     except (KeyError, TypeError, AttributeError) as exc:
         raise ValueError("invalid_jog") from exc
-    if direction not in range(5) or not 60 <= speed <= 180 or not 100 <= lease <= 500:
+    if direction not in range(5) or not 60 <= speed <= 300 or not 100 <= lease <= 500:
         raise ValueError("jog_out_of_range")
     return {"direction": direction, "speed_mm_s": speed,
             "lease_ms": lease, "source": "windows_stc"}

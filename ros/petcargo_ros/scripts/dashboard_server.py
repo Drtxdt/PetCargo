@@ -23,6 +23,7 @@ class DashboardNode:
         rospy.Subscriber("/petcargo/telemetry", String, self.on_telemetry, queue_size=10)
         rospy.Subscriber("/petcargo/events", String, self.on_event, queue_size=30)
         rospy.Subscriber("/petcargo/motion_status", String, self.on_motion, queue_size=10)
+        rospy.Subscriber("/petcargo/lidar_status", String, self.on_lidar, queue_size=10)
         rospy.Subscriber("/petcargo/safety_state", String, self.on_safety_state, queue_size=10)
         rospy.Subscriber("/petcargo/serial_connected", Bool, self.on_connected, queue_size=4)
 
@@ -62,6 +63,9 @@ class DashboardNode:
 
     def on_motion(self, message: String) -> None:
         self.state.merge("motion", self.decode_json(message))
+
+    def on_lidar(self, message: String) -> None:
+        self.state.merge("lidar", self.decode_json(message))
 
     def on_safety_state(self, message: String) -> None:
         self.state.merge("safety", self.decode_json(message))
