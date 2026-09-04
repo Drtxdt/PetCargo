@@ -15,7 +15,7 @@ from std_msgs.msg import Bool, Empty, String
 
 from petcargo_ros.motion import AngleAccumulator, angular_speed_for_error, linear_speed_for_error
 from petcargo_ros.obstacle import (
-    choose_detour_path,
+    choose_detour_side,
     corridor_clearance,
     detour_target_satisfied,
     direction_vector,
@@ -420,9 +420,8 @@ class MotionExecutor:
         return triggered
 
     def begin_avoidance(self, owner, context, direction):
-        selected, left_clearance, right_clearance = choose_detour_path(
-            self.scan_points, direction, self.stop_clearance,
-            self.shift_distance, self.pass_distance,
+        selected, left_clearance, right_clearance = choose_detour_side(
+            self.scan_points, direction, self.shift_distance + self.stop_clearance,
             self.half_length, self.half_width, self.corridor_margin
         )
         context["detour_attempted"] = True
