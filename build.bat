@@ -15,21 +15,27 @@ echo Usage: build.bat [all^|main^|remote^|diagnostic^|clean]
 exit /b 2
 
 :all
-call :build_main || exit /b 1
-call :build_diagnostic || exit /b 1
-call :build_remote || exit /b 1
+call :build_main
+if errorlevel 1 exit /b 1
+call :build_diagnostic
+if errorlevel 1 exit /b 1
+call :build_remote
+if errorlevel 1 exit /b 1
 goto success
 
 :main
-call :build_main || exit /b 1
+call :build_main
+if errorlevel 1 exit /b 1
 goto success
 
 :remote
-call :build_remote || exit /b 1
+call :build_remote
+if errorlevel 1 exit /b 1
 goto success
 
 :diagnostic
-call :build_diagnostic || exit /b 1
+call :build_diagnostic
+if errorlevel 1 exit /b 1
 goto success
 
 :build_diagnostic

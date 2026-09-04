@@ -24,3 +24,10 @@ with tempfile.TemporaryDirectory(prefix="petcargo-c-tests-") as directory:
                     str(ROOT / "tests/oled_driver_test.c"),
                     "-o", str(oled_output)], check=True)
     subprocess.run([str(oled_output)], check=True)
+    remote_output = pathlib.Path(directory) / "remote_tests.exe"
+    subprocess.run([cc, "-std=c99", "-O2", "-Wall", "-Wextra", "-Wno-misleading-indentation",
+                    "-I", str(ROOT / "firmware/stc_remote/include"),
+                    str(ROOT / "tests/remote_test.c"),
+                    str(ROOT / "firmware/stc_remote/remote.c"),
+                    "-o", str(remote_output)], check=True)
+    subprocess.run([str(remote_output)], check=True)

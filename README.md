@@ -12,7 +12,7 @@ PetCargo 是一个基于 STC-B 学习板、CSK5062 离线语音模组和 uCar RO
 ## 仓库结构
 
 - `firmware/stc`：车载主板 SDCC 固件。
-- `firmware/stc_remote`：第二块 STC 红外遥控板固件。
+- `firmware/stc_remote`：第二块 STC USB 导航遥控板固件。
 - `voice/csk5062`：离线命令词、回复和串口映射。
 - `ros/petcargo_ros`：ROS Noetic 包。
 - `dashboard`：无第三方前端依赖的网页看板。
@@ -55,5 +55,5 @@ cd firmware\stc
 - CSK5062 独立 USB 供电，禁止把 CSK 的 VCC 接到 STC EXT VCC。
 - CSK 与 STC 只连接交叉 TX/RX 和 GND。
 - 四向运动演示前清空周围至少 1 m 通道。
-- K3和网页急停会锁定底盘；语音“停下来”、红外松开和串口断开会立即归零。
+- K3和网页急停会锁定底盘；语音“停下来”、遥控板松开、Windows串口断开和网络租约超时会归零。
 - 不启动比赛任务节点；PetCargo 的 `safety_gateway` 是唯一 `/cmd_vel` 发布者。

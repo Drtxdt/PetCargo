@@ -48,7 +48,16 @@ def audit(name, directory, vectors):
 
 vectors = {0x0B: "_timer0_isr", 0x23: "_uart1_isr", 0x3B: "_pca_isr", 0x43: "_uart2_isr"}
 results = [audit(name, BUILD, vectors) for name in ("petcargo", "petcargo_diagnostic")]
-results.append(audit("petcargo_remote", ROOT / "firmware/stc_remote/build", {0x0B: "_timer0_isr"}))
+remote_build = ROOT / "firmware/stc_remote/build"
+results.append(audit("petcargo_remote", remote_build, {0x0B: "_timer0_isr"}))
+remote_asm = (remote_build / "main.asm").read_text()
+remote_scan = remote_asm.split("_timer0_isr:", 1)[1].split("reti", 1)[0]
+assert not re.search(r"\b[la]call\b|mov\s+a,\s*_P2\b", remote_scan)
+assert re.search(r"anl\s+_P2,#0xf0", remote_scan) and re.search(r"orl\s+_P2,a", remote_scan)
+remote_source = (ROOT / "firmware/stc_remote/main.c").read_text()
+assert "wait_us" not in remote_source and "ir_send" not in remote_source
+assert "0xA5,0x5A,0x02,direction,sequence++" in remote_source
+assert "T2H" in remote_source and "SCON=0x50" in remote_source
 asm = (BUILD / "hal.asm").read_text()
 scan = asm.split("_timer0_isr:", 1)[1].split("reti", 1)[0]
 assert not re.search(r"\b[la]call\b", scan), "Scan ISR must not call helper functions"
@@ -62,3 +71,4 @@ for address, pin in (("CC", "PIN_RTC_IO"), ("96", "PIN_RTC_RST"), ("C4", "PIN_SM
     assert re.search(rf"__at \(0x{address}\) {pin}\b", pins), pin
 print(json.dumps(results, indent=2))
 print("PASS HEX checksums, linked vectors, memory reserve, timer scan assembly and pin map")
+print("PASS USB remote: interrupt display scan, UART1/Timer2 framing, no IR busy-wait path")

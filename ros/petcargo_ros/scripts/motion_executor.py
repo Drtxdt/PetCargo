@@ -142,6 +142,9 @@ class MotionExecutor:
             direction = int(value["direction"])
             speed = min(0.18, max(0.06, int(value.get("speed_mm_s", 120)) / 1000.0))
             lease = min(0.5, max(0.1, int(value.get("lease_ms", 300)) / 1000.0))
+            source = str(value.get("source", "stc_remote"))
+            if source not in ("stc_remote", "windows_stc"):
+                raise ValueError("invalid source")
         except (KeyError, TypeError, ValueError, json.JSONDecodeError) as exc:
             rospy.logwarn("Invalid PetCargo jog request: %s", exc)
             return
@@ -158,15 +161,17 @@ class MotionExecutor:
             "direction_name": names[direction],
             "speed": speed,
             "deadline": time.monotonic() + lease,
+            "source": source,
         }
-        self.publish_status("running", source="infrared", direction=names[direction], lease_ms=round(lease * 1000))
+        self.publish_status("running", source=source, direction=names[direction], lease_ms=round(lease * 1000))
 
     def stop_jog(self, reason: str) -> None:
         if self.jog is None:
             return
+        source = self.jog.get("source", "stc_remote")
         self.jog = None
         self.command_pub.publish(Twist())
-        self.publish_status("idle", source="infrared", reason=reason)
+        self.publish_status("idle", source=source, reason=reason)
 
     def finish(self, code: MotionResultCode) -> None:
         if self.active is None:

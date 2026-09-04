@@ -12,12 +12,14 @@ import rospy
 from std_msgs.msg import Bool, String
 
 from petcargo_ros.state_store import DashboardState
+from petcargo_ros.remote_api import normalize_jog
 
 
 class DashboardNode:
     def __init__(self) -> None:
         self.state = DashboardState()
         self.safety_pub = rospy.Publisher("/petcargo/safety_set", Bool, queue_size=4)
+        self.jog_pub = rospy.Publisher("/petcargo/jog_request", String, queue_size=10)
         rospy.Subscriber("/petcargo/telemetry", String, self.on_telemetry, queue_size=10)
         rospy.Subscriber("/petcargo/events", String, self.on_event, queue_size=30)
         rospy.Subscriber("/petcargo/motion_status", String, self.on_motion, queue_size=10)
@@ -129,6 +131,14 @@ class DashboardNode:
                     engaged = bool(value.get("engaged", True))
                     node.safety_pub.publish(engaged)
                     self.send_json({"ok": True, "engaged": engaged})
+                elif path == "/api/jog":
+                    try:
+                        payload = normalize_jog(value)
+                    except ValueError as exc:
+                        self.send_json({"ok": False, "error": str(exc)}, 400)
+                        return
+                    node.jog_pub.publish(json.dumps(payload, separators=(",", ":")))
+                    self.send_json({"ok": True, **payload})
                 else:
                     self.send_error(404)
 

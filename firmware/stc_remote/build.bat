@@ -12,8 +12,11 @@ set "CFLAGS=-mmcs51 --std-sdcc99 --model-large --opt-code-size --xram-size 2048 
 echo [CC] main.c
 "%SDCC%" %CFLAGS% -c main.c -o build\main.rel
 if errorlevel 1 exit /b 1
+echo [CC] remote.c
+"%SDCC%" %CFLAGS% -c remote.c -o build\remote.rel
+if errorlevel 1 exit /b 1
 echo [LD] build\petcargo_remote.ihx
-"%SDCC%" -mmcs51 --model-large --xram-size 2048 --code-size 61440 build\main.rel -o build\petcargo_remote.ihx
+"%SDCC%" -mmcs51 --model-large --xram-size 2048 --code-size 61440 build\main.rel build\remote.rel -o build\petcargo_remote.ihx
 if errorlevel 1 exit /b 1
 "%PACKIHX%" build\petcargo_remote.ihx > build\petcargo_remote.hex
 if errorlevel 1 exit /b 1
