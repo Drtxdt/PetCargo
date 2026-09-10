@@ -47,6 +47,9 @@ cd firmware\stc
 
 ```bash
 /home/ucar/PetCargo/tools/run_robot.sh
+
+# Windows 遥控
+.\tools\run_remote.bat http://192.168.1.6:8080
 ```
 
 浏览器打开 `http://192.168.1.6:8080`。正式演示前必须阅读 `docs/wiring.md` 和 `docs/demo_script.md`。
