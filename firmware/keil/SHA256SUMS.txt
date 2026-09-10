@@ -1,0 +1,4 @@
+# SHA-256 for the vendored BSP and Keil course-build outputs
+5a02a4df4da6fbf6f6cc024822974f0692d160b85c271201e70be519b08d64b9  firmware/keil/vendor/STCBSP_V3.6.LIB
+0189e3548c58cf4f00263de58f8277b7e2260993fd48b1ae773be23927295150  firmware/keil/main_board/build_keil/PetCargo_Main_Keil.hex
+8cdac9e565e6a7e167774dbf75ba07d09c946829178b9589be7684152ee9047a  firmware/keil/remote_board/build_keil/PetCargo_Remote_Keil.hex

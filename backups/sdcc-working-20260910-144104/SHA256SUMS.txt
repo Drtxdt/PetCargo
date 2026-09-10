@@ -1,0 +1,4 @@
+# SHA-256 of the verified SDCC firmware used on hardware
+287ceb9e4c081f9b127971c918992b6eff02ec8cc900155705e37e43a1a91319  firmware/stc/build/petcargo.hex
+a55d24bf0db70d049f6e52d3c9fe5f7b58b90f892ec9397ee98063d7e937da8b  firmware/stc/build/petcargo_diagnostic.hex
+631af995b96ae0abc94032e9f264fda418e873d3a11fa7a67e84aba8a97d0766  firmware/stc_remote/build/petcargo_remote.hex
